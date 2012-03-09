@@ -24,7 +24,7 @@ public class ClientUDP implements Runnable {
 	
 	
 	private  void printMessage(String who,String action){
-		System.out.printf("%s:>%s\n.",action);
+		System.out.printf("%s:>%s\n.",who,action);
 	}
 		
 	public void run() {
