@@ -7,10 +7,11 @@ import java.net.SocketException;
 
 public class ServerUDP {
 	public static void main(String args[]) throws SocketException {
+		
         DatagramSocket s = null;
         
         s = new DatagramSocket(6789);
-        System.out.println("Servidor: aguardando pedidos");
+        System.out.println("Servidor: aguardando pedido na porta 6789");
         
         while(true){
         
@@ -32,4 +33,5 @@ public class ServerUDP {
 	        } finally {}
         }
     }
+	
 }
