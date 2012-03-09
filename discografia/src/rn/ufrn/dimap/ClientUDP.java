@@ -31,7 +31,7 @@ public class ClientUDP implements Runnable {
 		while(true) {
 			try {
 		
-				byte[] buf = new byte[65536] ;
+				byte[] buf = new byte[1024] ;
 				DatagramPacket datagram = new DatagramPacket( buf, buf.length ) ;
 				socket.receive( datagram ) ;
 				String msg = new String( datagram.getData(), 0, datagram.getLength() ) ;
