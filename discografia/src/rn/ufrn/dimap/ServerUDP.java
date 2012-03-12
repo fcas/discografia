@@ -20,7 +20,10 @@ public class ServerUDP {
 	            byte[] buffer = new byte[1000];
 	            DatagramPacket req = new DatagramPacket(buffer, buffer.length);
 	            s.receive(req);
-	            System.out.println("Servidor: recebeu: " + req.getAddress()+":"+req.getPort() + " " + new String(req.getData()));
+	            System.out.println("Servidor: recebeu: " 
+	            + req.getAddress()
+	            +":"+req.getPort() 
+	            + " " + new String(req.getData()));
 	            
 	            // envia resposta
 	            DatagramPacket resp = new DatagramPacket(req.getData(), req.getLength(),
