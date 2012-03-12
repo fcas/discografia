@@ -24,10 +24,11 @@ public class ClientUDP implements Runnable {
 	
 	
 	private  void printMessage(String who,String action){
-		System.out.printf("%s:>%s\n.",who,action);
+		System.out.printf("%s:>%s\n",who,action);
 	}
 		
 	public void run() {
+		
 		while(true) {
 			try {
 		
@@ -61,7 +62,9 @@ public class ClientUDP implements Runnable {
 				request = in.nextLine() ;
 				
 				byte[] requestData = request.getBytes() ;
-				DatagramPacket req = new DatagramPacket( requestData, requestData.length, server, port);
+				DatagramPacket req = new DatagramPacket(requestData,
+						requestData.length, 
+						server, port);
 				
 				try {
 					socket.send( req ) ;
@@ -70,7 +73,7 @@ public class ClientUDP implements Runnable {
 					e.printStackTrace();
 				}
 				
-			} while( ! request.equals("!fim")) ;
+			} while( ! request.equals("fim")) ;
 
 			socket.close() ;
 
