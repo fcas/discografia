@@ -3,6 +3,8 @@ package rn.ufrn.dimap;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
+
+
 public class UDPMessage{
 
 	private  DatagramSocket socket = null;
