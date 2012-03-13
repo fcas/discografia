@@ -48,11 +48,18 @@ public class Connection {
 	
 	public  InetAddress getConnection(){
 		
+		String line;				
+		String ip;
+		int port;
+		
 		if (this.fileIn !=null){
 			
-			
+			this.in = new Scanner(this.fileIn);
 			
 			while(in.hasNext()){
+				line = in.nextLine();
+				ip = line.split(":")[0];
+				port = Integer.parseInt(line.split(":")[1]);
 				
 			}
 			

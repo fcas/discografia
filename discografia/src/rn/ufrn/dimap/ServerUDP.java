@@ -11,7 +11,7 @@ public class ServerUDP {
         DatagramSocket s = null;
         
         s = new DatagramSocket(6789);
-        System.out.println("Servidor: aguardando pedido na porta 6789");
+        System.out.printf("Servidor: aguardando pedido na porta %s\n",s.getPort());
         
         while(true){
         
