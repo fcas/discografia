@@ -11,6 +11,16 @@ public class UDPClient extends UDPMessage {
 	private UDPMessageThreadReceive r=null;
 	private Disco disco;
 	
+	Scanner in = new Scanner(System.in);
+
+	while (true) {
+		
+		cnn = new Connection("host.txt","");
+		String msg = in.nextLine();
+		
+		mande para a classe mensagem
+	}
+	
 	
 	public UDPClient(String agent) {
 		super(agent);

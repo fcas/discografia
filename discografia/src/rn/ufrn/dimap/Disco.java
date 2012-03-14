@@ -5,11 +5,10 @@ public class Disco {
 	private String album;
 	private String tipo;
 
-	public UDPClient (String agent) {
+	public UDPData (String agent) {
 		super(agent);
 		cnnD = new Connection("hostx.txt","");
 	
-		doIt(); 
 		
 	}
 	
@@ -20,7 +19,7 @@ public class Disco {
 		this.album = album;
 		this.tipo = tipo;
 	}
-
+	
 	public int getAno() {
 		return ano;
 	}
