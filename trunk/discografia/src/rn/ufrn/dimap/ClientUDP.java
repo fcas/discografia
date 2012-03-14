@@ -2,7 +2,7 @@ package rn.ufrn.dimap;
 
 import java.net.DatagramSocket;
 import java.util.Scanner;
-import Handler; 
+import CHandler; 
 
 public class UDPClient extends UDPMessage {
 
@@ -15,11 +15,14 @@ public class UDPClient extends UDPMessage {
 	Scanner in = new Scanner(System.in);
 
 	while (true) {
-		
 		cnn = new Connection("host.txt","");
 		String msg = in.nextLine();
-		Handler.
-		mande para a classe mensagem
+		
+		if (msg == "QUIT"){
+			break;
+		} else {
+			
+		}
 	}
 	
 	public void doIt(){
