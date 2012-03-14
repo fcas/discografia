@@ -43,7 +43,5 @@ public class UDPMessage{
 	public byte[] getBuffer() {
 		return buffer;
 	}
-
-	
 	
 }
