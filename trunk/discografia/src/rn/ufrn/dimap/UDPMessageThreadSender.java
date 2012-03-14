@@ -9,7 +9,7 @@ import java.net.SocketException;
 
 /**
  * Objeto runnable para envio das mesagens dos
- * componentes da aplicao
+ * componentes da aplicacao
  */
 public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 	
@@ -21,23 +21,23 @@ public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 	
 	
 	/**
-	 * Constroi um objeto runnable para envio das menssagens dos componentes
+	 * Constroi um objeto runnable para envio das menssagens
+	 * doscomponentes
+	 * 
 	 * @param message a mensagem sera enviada
 	 * @param address o endereco de destino da mensagem
 	 * @param port a porta do destino
+	 * @throws SocketException repassando a Exception para
+	 * o componente 
 	 */
-	public UDPMessageThreadSender(String message,InetAddress address,int port) {
+	public UDPMessageThreadSender(String message,InetAddress address,int port) throws
+	SocketException {
 		
 		super.setMessage(message);
 		this.port=port;
 		setAddress(address);
-		
-		try {
-			this.socket = new DatagramSocket();	
-		} catch (SocketException e) {
-			e.printStackTrace();
-		}
-		
+		this.socket = new DatagramSocket();	
+				
 	}
 	
 	@Override
