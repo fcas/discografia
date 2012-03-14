@@ -70,7 +70,8 @@ public class Connection {
 	private void loadFile(){
 		
 		try {
-			isFile = new FileInputStream(String.format("%s%s%s", useDir,separator,fileName));
+			isFile = new FileInputStream(String.format("%s%s%s", useDir,
+					separator,fileName));
 		} catch (FileNotFoundException e) {
 			// cria o objeto ConsoleMessage para imprimir o erro
 			new ConsoleMessage(agent, e.getMessage());
@@ -91,11 +92,14 @@ public class Connection {
 				
 				this.in = new Scanner(this.isFile);
 				while(in.hasNext()){
-					String line = in.nextLine();
-					String host = line.split(":")[0];				// primeiro campo corresponde a ip
-					int port = Integer.parseInt(line.split(":")[1]);	// primeiro campo corresponde a porta
 					
-					new ConsoleMessage(agent,String.format("tentando disponibilidade em %s:%s",host,port));
+					String line = in.nextLine();
+					String host = line.split(":")[0];				
+					int port = Integer.parseInt(line.split(":")[1]);
+					
+					new ConsoleMessage(agent,
+							String.format("tentando disponibilidade em %s:%s",
+									host,port));
 					address = getConnection(host, port);
 					
 					if (address !=null)
@@ -132,7 +136,8 @@ public class Connection {
 			socket = new DatagramSocket();
 			socket.setSoTimeout(timeOut);
 
-			sender = new DatagramPacket(buffer,buffer.length,InetAddress.getByName(host),port);
+			sender = new DatagramPacket(buffer,buffer.length,
+					InetAddress.getByName(host),port);
 			socket.send(sender);
 			
 			receiver = new DatagramPacket(buffer, buffer.length);
