@@ -1,14 +1,8 @@
 package rn.ufrn.dimap;
 
-import UDPMessageThreadSend; 
+public class CHand {
 
-
-public class CHandler {
-
-	public void chandler (String linha){
-		
-		this.linha = linha;
-	
+	public void CHandler (String linha){	
 	}
 	
 }
