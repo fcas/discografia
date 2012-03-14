@@ -14,7 +14,7 @@ public class ConsoleMessage {
 	
 	/**
 	 * Constroi o objeto para
-	 * @param agent o nome do componte da aplicao que esta usando a classe
+	 * @param agent o componente da aplicao que esta usando o objeto
 	 * @param messagem a mensagem que o componte que criar
 	 */
 	public ConsoleMessage(String agent, String messagem) {
