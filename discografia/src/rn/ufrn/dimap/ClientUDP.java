@@ -6,7 +6,7 @@ public class ClientUDP extends UDPMessage {
 
 	
 	public ClientUDP(DatagramSocket socket) {
-		super(socket);
+		//super(socket);
 		// TODO Auto-generated constructor stub
 	}
 	
