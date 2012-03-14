@@ -6,7 +6,7 @@ import rn.ufrn.dimap.CHand;
 
 
 public class UDPClient extends UDPMessage {
-
+//testeeeeee
 	private DatagramSocket soket =null;
 	private Connection cnn = null;
 	private UDPMessageThreadSend s=null;
