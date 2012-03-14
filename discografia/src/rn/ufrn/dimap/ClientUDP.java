@@ -2,11 +2,16 @@ package rn.ufrn.dimap;
 
 import java.net.DatagramSocket;
 import java.util.Scanner;
-import rn.ufrn.dimap.CHand; 
 
+public class ClientUDP extends UDPMessage {
 
-public class UDPClient extends UDPMessage {
-//testeeeeee
+	
+	public ClientUDP(DatagramSocket socket) {
+		super(socket);
+		// TODO Auto-generated constructor stub
+	}
+	
+	/*//testeeeeee
 	private DatagramSocket soket =null;
 	private Connection cnn = null;
 	private UDPMessageThreadSend s=null;
@@ -56,7 +61,7 @@ public class UDPClient extends UDPMessage {
 		}
 		
 		
-	}
+	}*/
 	
 	
 }
