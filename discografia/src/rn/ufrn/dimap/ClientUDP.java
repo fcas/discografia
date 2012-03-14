@@ -2,7 +2,8 @@ package rn.ufrn.dimap;
 
 import java.net.DatagramSocket;
 import java.util.Scanner;
-import CHandler; 
+import rn.ufrn.dimap.CHand; 
+
 
 public class UDPClient extends UDPMessage {
 
@@ -21,7 +22,7 @@ public class UDPClient extends UDPMessage {
 		if (msg == "QUIT"){
 			break;
 		} else {
-			
+			Han
 		}
 	}
 	
