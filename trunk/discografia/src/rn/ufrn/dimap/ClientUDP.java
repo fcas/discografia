@@ -11,6 +11,7 @@ public class ClientUDP extends UDPMessage {
 	private UDPMessageThreadReceiver receiver = null;
 	private UDPMessageThreadSender sender = null;
 	private Connection conection = null;
+	private boolean slaver=false;
 	
 	/**
 	 * @return the agent
