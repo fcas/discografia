@@ -1,5 +1,6 @@
 package rn.ufrn.dimap;
 
+
 public class ConsoleMessage {
 	private String agent;
 	private String message;
