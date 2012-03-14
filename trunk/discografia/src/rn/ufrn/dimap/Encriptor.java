@@ -7,7 +7,7 @@ package rn.ufrn.dimap;
  * criptografia.
  *
  */
-public class Enpcriptor {
+public class Encriptor {
 
 	private int key;
 	private byte[] arrayByteOriginal;
@@ -18,7 +18,7 @@ public class Enpcriptor {
 	 * @param key a chave de criptografia
 	 * @param text o texto a ser criptografado
 	 */	
-	public Enpcriptor(int key,String text) {
+	public Encriptor(int key,String text) {
 		super();
 		this.key=key;
 		this.arrayByteOriginal = text.getBytes();
@@ -82,3 +82,4 @@ public class Enpcriptor {
 	public byte decrypt(byte letter){
 		return (byte)(letter - this.key);
 	}
+}
