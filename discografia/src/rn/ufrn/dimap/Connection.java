@@ -152,11 +152,4 @@ public class Connection {
 		return address;
 	}
 		
-
-	public static void main(String[] args) {
-		Connection cnn = new Connection("hosts.txt", "teste");
-		cnn.setTimeOut(6000);
-		
-	}
-	
 }
