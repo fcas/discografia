@@ -16,8 +16,6 @@ import java.util.Scanner;
  */
 public class Connection {
 
-	private String separator = null;
-	private String useDir = null;
 	private String fileName = null;
 	private InputStream isFile = null;
 	private Scanner in = null;
@@ -27,10 +25,32 @@ public class Connection {
 	private String agent;
 	private InetAddress address = null;
 	private int timeOut=1000;
+	private SystemConfigurations sysConfig=null;
 	
 	
 	/**
-	 * @return the timeOut
+	 * Constroi um objeto de teste de conexao
+	 *  
+	 * @param fileName arquivos contendo ip e portas do servidores
+	 * principais
+	 * 
+	 * @param agent o nome do componente da aplicao 
+	 */
+	public Connection(String fileName, String agent) {
+		sysConfig = new SystemConfigurations();
+		
+		this.fileName = String.format("%s%s",sysConfig.getWorkDiretory(),
+				sysConfig.getFileSeparator(),fileName);
+		
+		this.agent=agent;
+		
+		loadFile();
+		checkServer();
+	}
+	
+	/**
+	 * Obtem o time de espera do socket
+	 * @return timeOut o tempo  de espera do socket
 	 */
 	public int getTimeOut() {
 		return timeOut;
@@ -43,25 +63,6 @@ public class Connection {
 	public void setTimeOut(int timeOut) {
 		this.timeOut = timeOut;
 	}
-
-
-	/**
-	 * Constroi um objeto de teste de conexao 
-	 * @param fileName arquivos contendo ip e portas do servidores principais
-	 * @param agent o nome do componente da aplicao 
-	 */
-	public Connection(String fileName, String agent) {
-		this.separator=System.getProperty("file.separator");
-		this.useDir=System.getProperty("user.dir");
-		this.fileName = fileName;
-		this.agent=agent;
-		// carrega o arquivo os dados
-		loadFile();
-		
-		// checka um possivel cantidato ativo
-		checkServer();
-	}
-	
 	
 	/**
 	 * Carrega o arquivo de ips de servidores
@@ -70,8 +71,7 @@ public class Connection {
 	private void loadFile(){
 		
 		try {
-			isFile = new FileInputStream(String.format("%s%s%s", useDir,
-					separator,fileName));
+			isFile = new FileInputStream(String.format("%s",fileName));
 		} catch (FileNotFoundException e) {
 			// cria o objeto ConsoleMessage para imprimir o erro
 			new ConsoleMessage(agent, e.getMessage());
