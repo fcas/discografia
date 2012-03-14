@@ -1,37 +1,39 @@
 package rn.ufrn.dimap;
 
-import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class ClientUDP extends UDPMessage {
-
 	
-	public ClientUDP(DatagramSocket socket) {
-		//super(socket);
-		// TODO Auto-generated constructor stub
+	private String agent=null;
+	private UDPMessageThreadReceiver receiver = null;
+	private UDPMessageThreadSender sender = null;
+	private Connection conection = null;
+	
+	/**
+	 * @return the agent
+	 */
+	public String getAgent() {
+		return agent;
 	}
-	
-	/*//testeeeeee
-	private DatagramSocket soket =null;
-	private Connection cnn = null;
-	private UDPMessageThreadSend s=null;
-	private UDPMessageThreadReceive r=null;
-	private Disco disco;
-	
-	Scanner in = new Scanner(System.in);
 
-	while (true) {
-		cnn = new Connection("host.txt","");
-		String msg = in.nextLine();
-		
-		if (msg == "QUIT"){
-			break;
-		} else {
-			Han
-		}
+	/**
+	 * @param agent the agent to set
+	 */
+	public void setAgent(String agent) {
+		this.agent = agent;
+	}
+
+	public ClientUDP(String agent) {
+		this.agent = agent;
 	}
 	
 	public void doIt(){
+		
 		Scanner in = new Scanner(System.in);
+		
 		Thread th1;
 		Thread th2;
 	
@@ -45,22 +47,34 @@ public class ClientUDP extends UDPMessage {
 			
 			if (linha.contains("GET")){
 				
-				System.out.println("infome ano");
-						
 				
-				s.setMessage(linha);
-				r.getMessage();
+				try {
+					sender = new UDPMessageThreadSender("the cure", InetAddress.getByName("localhost"), 1234);
+				 
+				// enviou o dado
+				th1 = new Thread(sender);
+				th1.start();
+				
+				receiver = new UDPMessageThreadReceiver(1243);
+				
+				th2 = new Thread(receiver);
+				th2.start();
+				
+				String resp = receiver.getMessage();
+				
+				// tratador das mensagens
 				
 				
-				th1 = new Thread(s);
-				th2 = new Thread(r);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 			}
 			
 			
 		}
 		
-		
-	}*/
+	}
 	
 	
 }
