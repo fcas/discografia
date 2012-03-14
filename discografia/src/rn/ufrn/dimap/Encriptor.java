@@ -14,7 +14,7 @@ public class Encriptor {
 	private byte[] arrayByteEncripted;
 	
 	/**
-	 * Constrói um emcriptador 
+	 * Constroi um emcriptador 
 	 * @param key a chave de criptografia
 	 * @param text o texto a ser criptografado
 	 */	
