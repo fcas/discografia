@@ -2,7 +2,7 @@ package rn.ufrn.dimap;
 
 public class ConsoleMessage {
 	private String agent;
-	private String messagem;
+	private String message;
 	
 	public ConsoleMessage(String agent, String messagem) {
 		super();
@@ -19,19 +19,19 @@ public class ConsoleMessage {
 	}
 
 	public String getMessagem() {
-		return messagem;
+		return message;
 	}
 
 	private void setMessagem(String messagem) {
-		this.messagem = messagem;
+		this.message = messagem;
 	}
 	
-	public void printOut(){
-		System.out.printf("%s:%s.\n",this.agent,this.messagem);
+	public void defaultOut(){
+		System.out.printf("%s:%s.\n",this.agent,this.message);
 	}
 	
-	public void PrintErro(){
-		System.err.printf("%s:%s.\n",this.agent,this.messagem);
+	public void outErro(){
+		System.err.printf("%s:%s.\n",this.agent,this.message);
 	}
 	
 }
