@@ -30,8 +30,8 @@ public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 	 * @throws SocketException repassando a Exception para
 	 * o componente 
 	 */
-	public UDPMessageThreadSender(String message,InetAddress address,int port) throws
-	SocketException {
+	public UDPMessageThreadSender(String message,InetAddress address,int port)
+			throws	SocketException {
 		
 		super.setMessage(message);
 		this.port=port;
