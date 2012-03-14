@@ -28,7 +28,7 @@ public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 	 */
 	public UDPMessageThreadSender(String message,InetAddress address,int port) {
 		
-		super(message);
+		super.setMessage(message);
 		this.port=port;
 		setAddress(address);
 		
@@ -40,7 +40,7 @@ public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 		
 	}
 	
-
+	@Override
 	public void run() {
 		
 		byte[] buffer = super.getBuffer();
