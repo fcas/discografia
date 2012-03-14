@@ -4,6 +4,15 @@ public class Disco {
 	private int ano;
 	private String album;
 	private String tipo;
+
+	public UDPClient (String agent) {
+		super(agent);
+		cnnD = new Connection("hostx.txt","");
+	
+		doIt(); 
+		
+	}
+	
 	
 	public Disco(int ano, String album, String tipo) {
 		super();
