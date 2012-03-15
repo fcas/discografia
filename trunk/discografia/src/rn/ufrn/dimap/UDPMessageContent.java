@@ -1,10 +1,10 @@
 package rn.ufrn.dimap;
 
-
 /**
  * Classe usada para usar criar um conteudo
  * de mensagem usando UDP 
  */
+
 public final class UDPMessageContent{
 	 
 	private byte[] arrayByte;
