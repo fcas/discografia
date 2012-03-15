@@ -16,6 +16,7 @@ public class ClientUDP extends UDPMessage {
 	/**
 	 * @return the agent
 	 */
+	
 	public String getAgent() {
 		return agent;
 	}
@@ -23,6 +24,7 @@ public class ClientUDP extends UDPMessage {
 	/**
 	 * @param agent the agent to set
 	 */
+	
 	public void setAgent(String agent) {
 		this.agent = agent;
 	}
