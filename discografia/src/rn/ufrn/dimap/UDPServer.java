@@ -1,5 +1,9 @@
 package rn.ufrn.dimap;
 
+import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
 
 /**
  * Definicao do componente servidor
@@ -9,10 +13,10 @@ public final class UDPServer {
 		
 	private int port;
 	private boolean primary;
-	private UDPReceiveMessage receiveMessage=null;
-	private UDPSendMessage sendMessage=null;
 	private Request request = null;
 	private HandlerGetCommand getCommand = null;
+	private UDPReceiveMessage receiveMessage = null;
+	//private UDPSendMessage sendMessage = null;
 	
 	
 	/**
@@ -27,6 +31,34 @@ public final class UDPServer {
 		
 	}
 
+	/**
+	 * Fica esperando as requisicoes
+	 * @throws SocketException 
+	 */
+	public void doIt() throws SocketException{
+		
+		// abrindo a porta do servidor
+		DatagramSocket socket = new DatagramSocket(port);
+		String data = null;
+		
+		while(true){
+			
+			receiveMessage = new UDPReceiveMessage();
+			receiveMessage.setSocket(socket);	
+			
+			try {
+				receiveMessage.receive();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		
+	}
+	
+	
 	public static void main(String[] args) {
 		
 		if (args.length<1){
@@ -37,21 +69,17 @@ public final class UDPServer {
 		int port = Integer.parseInt(args[0]);	// a parta de escuta
 		boolean mode = Boolean.parseBoolean(args[1]);	// o modo do componente
 		
-		new UDPServer(port, mode).doIt();
-		
-	}
-	
-	
-	/**
-	 * Fica esperando as requisicoes
-	 */
-	public void doIt(){
-		
-		while(true){
-					
+		try {
+			
+			new UDPServer(port, mode).doIt();
+			
+		} catch (SocketException e) {
+			e.printStackTrace();
 		}
 		
+		
 	}
+	
 	
 	
 	/**
