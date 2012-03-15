@@ -54,14 +54,15 @@ public class Connection {
 	 * Obtem o time de espera do socket
 	 * @return timeOut o tempo  de espera do socket
 	 */
+	
 	public int getTimeOut() {
 		return timeOut;
 	}
 
-
 	/**
 	 * @param timeOut the timeOut to set
 	 */
+	
 	public void setTimeOut(int timeOut) {
 		this.timeOut = timeOut;
 	}
@@ -70,6 +71,7 @@ public class Connection {
 	 * Carrega o arquivo de ips de servidores
 	 * de discografias
 	 */
+	
 	private void loadFile(){
 		
 		try {
@@ -83,9 +85,10 @@ public class Connection {
 	
 	/**
 	 * Tenta executar um teste de disponibilidade de servico
-	 * para um componete da aplicao
+	 * para um componete da aplicacao
 	 * @return address o endereco de algum sevidor disponivel
 	 */
+	
 	private void checkServer(){
 		
 			if (this.isFile != null){
