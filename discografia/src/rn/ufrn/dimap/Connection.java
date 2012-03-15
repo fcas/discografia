@@ -14,6 +14,7 @@ import java.util.Scanner;
  * de discrografias, usado para dar um nível
  * de redundancia aos agentes da aplicacao
  */
+
 public class Connection {
 
 	private String fileName = null;
@@ -36,6 +37,7 @@ public class Connection {
 	 * 
 	 * @param agent o nome do componente da aplicao 
 	 */
+	
 	public Connection(String fileName, String agent) {
 		sysConfig = new SystemConfigurations();
 		
