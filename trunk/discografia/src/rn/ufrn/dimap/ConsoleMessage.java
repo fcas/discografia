@@ -6,7 +6,7 @@ package rn.ufrn.dimap;
  * e mensagens de erro
  */
 
-public class ConsoleMessage {
+public final class ConsoleMessage {
 	private String agent;
 	private String message;
 		
