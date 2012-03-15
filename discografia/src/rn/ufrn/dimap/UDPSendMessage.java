@@ -7,12 +7,15 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 
+/**
+ * Classe para enviar mensagens UDP
+ */
 public final class UDPSendMessage {
 	
 	private DatagramSocket socket = null;
 	private DatagramPacket packet = null;
 	private InetAddress serverAdress = null;
-	private UDPMessageContent message =null;	
+	private UDPMessageContent udpMessageContent = null;	
 	private int port;
 	
 	
@@ -37,8 +40,8 @@ public final class UDPSendMessage {
 	 */
 	public void sender() throws IOException{
 		
-		packet = new DatagramPacket(message.getArrayByte(), 
-				message.getArrayByte().length, serverAdress, port);
+		packet = new DatagramPacket(udpMessageContent.getArrayByte(), 
+				udpMessageContent.getArrayByte().length, serverAdress, port);
 		socket.send(packet);
 		closeSocket();		
 	}
@@ -48,15 +51,28 @@ public final class UDPSendMessage {
 	 * @param text
 	 */
 	private void setContent(String text){
-		message = new UDPMessageContent();
-		message.setText(text);
+		udpMessageContent = new UDPMessageContent();
+		udpMessageContent.setText(text);
 	}
 	
+	/**
+	 * Fecha o sokete utilizado
+	 */
 	private void closeSocket(){
 		if (socket !=null)
 			socket.close();
 	}
 	
-	
+	/* teste simple de envio de mensagem
+	public static void main(String[] args) {
+		try {
+			
+			new UDPSendMessage("olha", InetAddress.getByName("localhost"),1025).sender();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	*/
 	
 }
