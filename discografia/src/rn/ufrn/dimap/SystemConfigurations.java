@@ -7,6 +7,7 @@ package rn.ufrn.dimap;
  */
 
 public final class SystemConfigurations {
+	private final int TIME_OUT = 6000;
 	private final int MAX_LENGTH_MESSAGE = 1024;
 	private String os = null;
 	private String fileSeparator = null;
@@ -87,6 +88,14 @@ public final class SystemConfigurations {
 	 */
 	public int getMAX_LENGTH_MESSAGE() {
 		return MAX_LENGTH_MESSAGE;
+	}
+
+	/** 
+	 * Obtem o time de espera do socket
+	 * @return TIME_OUT o tempo  de espera do socket
+	 */
+	public int getTIME_OUT() {
+		return TIME_OUT;
 	}
 	
 }
