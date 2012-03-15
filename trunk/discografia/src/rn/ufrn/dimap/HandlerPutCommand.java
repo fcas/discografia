@@ -9,7 +9,7 @@ public class HandlerPutCommand extends Handler {
 	public void handleRequest(Request request) {
 		
 		// se for o comando put proceder a resposta
-		if (request.equals(Commands.PUT)){
+		if (request.getCommand().equals(Commands.PUT)){
 			//
 		}else{
 			
