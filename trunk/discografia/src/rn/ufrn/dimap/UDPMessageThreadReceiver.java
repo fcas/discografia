@@ -50,16 +50,17 @@ public class UDPMessageThreadReceiver extends UDPMessage implements Runnable {
 	 * Obtem a porta de recebimento
 	 * dos dados no componente
 	 */
+	
 	public int getPort() {
 		return port;
 	}
 
-	
 	/**
 	 * Configura a porta de recebimento
 	 * dos dados no componente
 	 * @param port a port de escuta do componente
 	 */
+	
 	public void setPort(int port) {
 		this.port = port;
 	}
