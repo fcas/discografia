@@ -13,7 +13,7 @@ public abstract class Handler {
 		this.successor = successor;
 	}
 	
-	public abstract void handleRequest(final Commands request);
+	public abstract void handleRequest(final Request request);
 	
 	
 }
