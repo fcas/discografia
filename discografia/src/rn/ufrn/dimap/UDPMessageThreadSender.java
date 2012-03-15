@@ -6,19 +6,17 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-
 /**
- * Objeto runnable para envio das mesagens dos
+ * Objeto runnable para envio das mesnagens dos
  * componentes da aplicacao
  */
+
 public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 	
 	private InetAddress address;
 	private DatagramSocket socket = null;
 	private DatagramPacket packet = null;
-	private int port;
-			
-	
+	private int port;	
 	
 	/**
 	 * Constroi um objeto runnable para envio das menssagens
@@ -30,6 +28,7 @@ public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 	 * @throws SocketException repassando a Exception para
 	 * o componente 
 	 */
+	
 	public UDPMessageThreadSender(String message,InetAddress address,int port)
 			throws	SocketException {
 		
@@ -47,7 +46,7 @@ public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 		int length = super.getBuffer().length;
 				
 		packet = new DatagramPacket(buffer,length, address,port);
-		
+	
 		try {
 			socket.send(packet);
 		} catch (IOException e) {
@@ -61,14 +60,16 @@ public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 	 * Obtem o endereco do endereco de destino
 	 * da mensagem
 	 */
+	
 	public InetAddress getAddress() {
 		return address;
 	}
-
+	
 	/**
 	 * Configura o endereco de destino
 	 * da mensagem
 	 */
+	
 	private void setAddress(InetAddress address) {
 		this.address = address;
 	}
