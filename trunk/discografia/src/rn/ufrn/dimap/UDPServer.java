@@ -41,6 +41,10 @@ public final class UDPServer {
 		
 	}
 	
+	
+	/**
+	 * Fica esperando as requisicoes
+	 */
 	public void doIt(){
 		
 		while(true){
