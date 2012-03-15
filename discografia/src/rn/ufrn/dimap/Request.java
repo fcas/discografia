@@ -9,14 +9,15 @@ package rn.ufrn.dimap;
 public class Request {
 	
 	private Commands command;
-	
+	private String argument;
 	
 	/**
 	 * Controi o objeto requiscao
 	 * @param command enum de comandos da aplicao
 	 */
-	public Request(Commands command) {
+	public Request(Commands command,String argument) {
 		this.command=command;
+		this.argument=argument;
 	}
 	
 	/**
@@ -31,6 +32,20 @@ public class Request {
 	 */
 	public void setCommand(Commands command) {
 		this.command = command;
+	}
+
+	/**
+	 * @return the argument
+	 */
+	public String getArgument() {
+		return argument;
+	}
+
+	/**
+	 * @param argument the argument to set
+	 */
+	public void setArgument(String argument) {
+		this.argument = argument;
 	}
 
 	
