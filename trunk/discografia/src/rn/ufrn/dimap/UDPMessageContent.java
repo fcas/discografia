@@ -7,46 +7,24 @@ package rn.ufrn.dimap;
  */
 public final class UDPMessageContent{
 	 
-	private byte[] buffer;
-	private String content;
+	private byte[] arrayByte;
+	private String text;
 	
-	/**
-	 * Converte um array de byte em string
-	 * @return um array de byte
-	 */
-	public String arrayByteToString()
-	{
-		content = new String(buffer);
-		return content;
+	public byte[] getArrayByte() {
+		return text.getBytes().clone();
 	}
 
-	/**
-	 * Converte um string em um array de byte
-	 * @return um array de byte
-	 */
-	public byte[] stringToArrayByte()
-	{
-		return content.getBytes();
-	}
-	
-	/**
-	 * Get e Set 
-	 */
-	
-	public byte[] getBuffer() {
-		return buffer;
+	public void setArrayByte(byte[] buffer) {
+		this.arrayByte = buffer;
 	}
 
-	public void setBuffer(byte[] buffer) {
-		this.buffer = buffer;
+	public String getText() {
+		String text = new String(arrayByte);  
+		return text;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 }
