@@ -6,7 +6,7 @@ package rn.ufrn.dimap;
  * sera usado na classe Connection
  */
 
-public class SystemConfigurations {
+public final class SystemConfigurations {
 	
 	private String os = null;
 	private String fileSeparator = null;
