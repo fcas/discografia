@@ -14,7 +14,6 @@ public final class UDPServer {
 	private int port;
 	private boolean primary = true;
 	private Request request = null;
-	private Handler handler = null;
 	private UDPReceiveMessage receiveMessage = null;
 	private SystemConfigurations sysConfig = null;
 	
@@ -74,20 +73,26 @@ public final class UDPServer {
 			// obtendo os campos comando e argumento
 			String cmd = linha.split(sysConfig.getDELIMITED_FIELD())[0];
 			String arg = linha.split(sysConfig.getDELIMITED_FIELD())[1];
-			handlerRequest(cmd, arg);
+			handlerCommand(cmd, arg);
 			
 		}
 		
 	}
 	
-	public void handlerRequest(String cmd, String arg){
+	public void handlerCommand(String cmd, String arg){
 		
 		Commands enumCommand;
 		
-		handler = new HandlerGetCommand();
-		handler = new HandlerPutCommand();
-		handler = new HandlerWhereCommand();
+		Handler handlerGet = new HandlerGetCommand();
+		Handler handlerWhere = new HandlerWhereCommand();
+		Handler handlerPut = new HandlerPutCommand();
+		Handler handlerEcho = new HandlerEchoCommand();
 		
+		handlerEcho.setSucessor(handlerGet);
+		handlerGet.setSucessor(handlerWhere);
+		handlerWhere.setSucessor(handlerPut);
+		
+				
 		
 		try {
 		
@@ -153,6 +158,20 @@ public final class UDPServer {
 	 */
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	/**
+	 * @return the request
+	 */
+	public Request getRequest() {
+		return request;
+	}
+
+	/**
+	 * @param request the request to set
+	 */
+	public void setRequest(Request request) {
+		this.request = request;
 	}
 	
 	
