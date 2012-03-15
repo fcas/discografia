@@ -1,20 +1,20 @@
 package rn.ufrn.dimap;
 
-
 /**
  * Classe base para criacao das Classes de envio e recebimento
  * de pacotes UDP
  */
+
 public class UDPMessage{
 	 
 	private byte[] buffer;
 	private String message;
-	
-	
+		
 	/**
 	 * Obtem o texto da mensagem 
 	 * @return o texto da mensagem
 	 */
+	
 	public String getMessage()
 	{
 		message = new String(buffer);
