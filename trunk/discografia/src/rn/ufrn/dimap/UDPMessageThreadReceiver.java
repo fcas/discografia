@@ -40,6 +40,7 @@ public class UDPMessageThreadReceiver extends UDPMessage implements Runnable {
 				String message = new String(packet.getData());
 				super.setMessage(message);
 				
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -48,6 +49,7 @@ public class UDPMessageThreadReceiver extends UDPMessage implements Runnable {
 	}
 
 	/**
+	 * 
 	 * Obtem a porta de recebimento
 	 * dos dados no componente
 	 */
