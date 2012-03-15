@@ -107,17 +107,17 @@ public class Connection {
 									host,port));
 					address = getConnection(host, port);
 					
-					if (address !=null)
+					if (address != null)
 						break;
 					
 				}	
 				
 			} catch (Exception ex) {
-				// cria o objeto ConsoleMessage para imprimir o erro
+				/* Cria o objeto ConsoleMessage para imprimir o erro */
 				new ConsoleMessage(agent, ex.getMessage());
 			} finally{
 				
-				if (isFile !=null){
+				if (isFile != null){
 					try {
 						isFile.close();
 					} catch (IOException e) {
@@ -131,10 +131,7 @@ public class Connection {
 	public InetAddress getConnection(String host, int port){
 		String message = "echo";
 		byte[] buffer = message.getBytes();
-		InetAddress address=null;
-		
-		
-		
+		InetAddress address = null;
 		
 		try {
 			
@@ -150,10 +147,8 @@ public class Connection {
 			
 			String retorn = new String(receiver.getData());
 			
-			
 			if (retorn.equals(message))
 				address = socket.getInetAddress();
-			
 			
 		} catch (Exception e) {
 			new ConsoleMessage(agent, e.getMessage()).outErro();
@@ -161,6 +156,5 @@ public class Connection {
 		
 		return address;
 	}
-	
 	
 }
