@@ -6,7 +6,7 @@ package rn.ufrn.dimap;
 public class HandlerPutCommand extends Handler {
 
 	@Override
-	public void handleRequest(Commands request) {
+	public void handleRequest(Request request) {
 		
 		// se for o comando put proceder a resposta
 		if (request.equals(Commands.PUT)){
