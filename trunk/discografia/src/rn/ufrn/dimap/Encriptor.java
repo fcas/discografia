@@ -7,7 +7,7 @@ package rn.ufrn.dimap;
  * criptografia.
  *
  */
-public class Encriptor {
+public final class Encriptor {
 
 	private int key;
 	private byte[] arrayByteOriginal;
