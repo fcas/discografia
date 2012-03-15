@@ -7,7 +7,7 @@ package rn.ufrn.dimap;
  */
 
 public final class ConsoleMessage {
-	private String agent;
+	private String agentName;
 	private String message;
 		
 	/**
@@ -28,7 +28,7 @@ public final class ConsoleMessage {
 	 */
 	
 	public String getAgent() {
-		return agent;
+		return agentName;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public final class ConsoleMessage {
 	 */
 
 	private void setAgent(String agent) {
-		this.agent = agent;
+		this.agentName = agent;
 	}
 
 	/**
@@ -59,19 +59,12 @@ public final class ConsoleMessage {
 	}
 		
 	/**
-	 * Cria uma saida padrao customizada
+	 * Cria uma saida padrao
 	 */
 	
-	public void defaultOut(){
-		System.out.printf("%s:%s.\n",this.agent,this.message);
+	public void print(){
+		System.out.printf("%s:%s.\n",this.agentName,this.message);
 	}
 	
-	/**
-	 * Cria uma saida de erro customizada
-	 */
-	
-	public void outErro(){
-		System.err.printf("%s:%s.\n",this.agent,this.message);
-	}
 	
 }
