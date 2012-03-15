@@ -40,9 +40,11 @@ public final class UDPServer {
 		DatagramSocket socket = new DatagramSocket(port);
 		String contentMessage = null;
 		
+		System.out.println("Servidor escutando: ");
+		
 		while(true){
 			
-			receiveMessage = new UDPReceiveMessage();
+			receiveMessage = new UDPReceiveMessage(port);
 			receiveMessage.setSocket(socket);	
 			
 			try {
@@ -88,17 +90,16 @@ public final class UDPServer {
 		Handler handlerPut = new HandlerPutCommand();
 		Handler handlerEcho = new HandlerEchoCommand();
 		
-		handlerEcho.setSucessor(handlerGet);
 		handlerGet.setSucessor(handlerWhere);
 		handlerWhere.setSucessor(handlerPut);
-		
-				
+		handlerPut.setSucessor(handlerEcho);
+		//		
 		
 		try {
 		
 			enumCommand = Commands.valueOf(cmd);
 			request = new Request(enumCommand, arg);
-			
+			handlerGet.handleRequest(request);
 			
 			
 		} catch (Exception e) {
@@ -156,6 +157,7 @@ public final class UDPServer {
 	
 	public static void main(String[] args) {
 		
+		/*
 		if (args.length<1){
 			System.err.printf("Usage: %s %s %s\n",UDPServer.class.getName(),
 					"port","mode");
@@ -164,10 +166,11 @@ public final class UDPServer {
 		
 		int port = Integer.parseInt(args[0]);	// a parta de escuta
 		boolean mode = Boolean.parseBoolean(args[1]);	// o modo do componente
-		
+*/		
 		try {
 			
-			new UDPServer(port, mode).listenIt();
+			UDPServer servidor = new UDPServer(1025, true);
+			servidor.listenIt();
 			
 		} catch (SocketException e) {
 			e.printStackTrace();
