@@ -1,11 +1,9 @@
 package rn.ufrn.dimap;
 
-public class UDPServer {
+public final class UDPServer {
 		
 	private int port;
 	private boolean primary;
-	
-	  
 	
 	
 	public UDPServer(int port, boolean primary) {
@@ -15,6 +13,17 @@ public class UDPServer {
 		
 	}
 
+	
+	public static void main(String[] args) {
+		
+		while(true){
+			
+		}
+		
+	}
+	
+	
+	
 	/**
 	 * @return the primary
 	 */
@@ -49,9 +58,6 @@ public class UDPServer {
 	
 	
 	
-	public static void main(String[] args) {
-		
-	}
 	
 	
 }
