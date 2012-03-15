@@ -44,7 +44,7 @@ public final class Connection {
 		this.fileName = String.format("%s%s",sysConfig.getWorkDiretory(),
 				sysConfig.getFileSeparator(),fileName);
 		
-		this.agent=agent;
+		this.agent = agent;
 		
 		loadFile();
 		checkServer();
