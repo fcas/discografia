@@ -35,7 +35,7 @@ public final class Connection {
 	 * @param fileName arquivos contendo ip e portas do servidores
 	 * principais
 	 * 
-	 * @param agent o nome do componente da aplicao 
+	 * @param agent o nome do componente da aplicacao 
 	 */
 	
 	public Connection(String fileName, String agent) {
