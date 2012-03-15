@@ -5,6 +5,11 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
+
+/**
+ * Classe para receber mensagens UDP
+ *
+ */
 public class UDPReceiveMessage {
 	
 	private DatagramSocket socket = null;
