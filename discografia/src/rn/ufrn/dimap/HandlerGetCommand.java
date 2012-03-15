@@ -9,7 +9,7 @@ public class HandlerGetCommand extends Handler {
 	public void handleRequest(Request request) {
 		
 		// se for o comando get proceder a resposta
-		if (request.equals(Commands.GET)){
+		if (request.getCommand().equals(Commands.GET)){
 			//
 		}else{
 			
