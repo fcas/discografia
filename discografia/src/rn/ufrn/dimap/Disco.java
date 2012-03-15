@@ -4,7 +4,7 @@ package rn.ufrn.dimap;
  * Uma estrutara para armazenar dados de uma 
  * discografia
  */
-public class Disco {
+public final class Disco {
 	private int ano;
 	private String album;
 	private String tipo;
