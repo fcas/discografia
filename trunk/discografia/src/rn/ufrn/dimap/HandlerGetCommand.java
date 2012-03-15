@@ -6,7 +6,7 @@ package rn.ufrn.dimap;
 public class HandlerGetCommand extends Handler {
 
 	@Override
-	public void handleRequest(Commands request) {
+	public void handleRequest(Request request) {
 		
 		// se for o comando get proceder a resposta
 		if (request.equals(Commands.GET)){
