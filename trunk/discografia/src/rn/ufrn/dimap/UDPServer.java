@@ -109,27 +109,6 @@ public final class UDPServer {
 	}
 	
 	
-	public static void main(String[] args) {
-		
-		if (args.length<1){
-			System.err.printf("Usage: %s %s %s\n",UDPServer.class.getClass(),"port","mode");
-			System.exit(1);
-		}
-		
-		int port = Integer.parseInt(args[0]);	// a parta de escuta
-		boolean mode = Boolean.parseBoolean(args[1]);	// o modo do componente
-		
-		try {
-			
-			new UDPServer(port, mode).listenIt();
-			
-		} catch (SocketException e) {
-			e.printStackTrace();
-		}
-		
-		
-	}
-	
 	
 	
 	/**
@@ -175,7 +154,27 @@ public final class UDPServer {
 	}
 	
 	
-	
+	public static void main(String[] args) {
+		
+		if (args.length<1){
+			System.err.printf("Usage: %s %s %s\n",UDPServer.class.getName(),
+					"port","mode");
+			System.exit(1);
+		}
+		
+		int port = Integer.parseInt(args[0]);	// a parta de escuta
+		boolean mode = Boolean.parseBoolean(args[1]);	// o modo do componente
+		
+		try {
+			
+			new UDPServer(port, mode).listenIt();
+			
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
 	
 }
