@@ -10,7 +10,7 @@ public class HandlerWhereCommand extends Handler {
 	public void handleRequest(Request request) {
 		
 		// se for o comando put proceder a resposta
-		if (request.equals(Commands.WHERE)){
+		if (request.getCommand().equals(Commands.WHERE)){
 			//
 		}else{
 			
