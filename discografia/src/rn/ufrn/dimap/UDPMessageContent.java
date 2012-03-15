@@ -1,30 +1,33 @@
 package rn.ufrn.dimap;
 
+
 /**
  * Classe usada para usar criar um conteudo
- * de mensagem usando UDP 
+ * de mensagem UDP 
  */
-
 public final class UDPMessageContent{
 	 
 	private byte[] arrayByte;
 	private String text;
 	
+	
 	public byte[] getArrayByte() {
-		return text.getBytes().clone();
+		//return text.getBytes().clone();
+		return text.getBytes();
 	}
 
-	public void setArrayByte(byte[] buffer) {
+	public synchronized void setArrayByte(final byte[] buffer) {
 		this.arrayByte = buffer;
 	}
 
-	public String getText() {
+	public synchronized String getText() {
 		String text = new String(arrayByte);  
 		return text;
 	}
 
-	public void setText(String text) {
+	public synchronized void setText(final String text) {
 		this.text = text;
 	}
+	
 
 }
