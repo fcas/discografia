@@ -16,12 +16,12 @@ public class ClientUDPTest {
         DatagramSocket s = null;
         
         try {
-            s = new DatagramSocket(); // cria um socket UDP
+            s = new DatagramSocket(); /* Cria um socket UDP */
             System.out.println("\n* CLIENTE: Socket criado na porta: " + s.getLocalPort());
             InetAddress serv = InetAddress.getByName(servidor);
-            byte[] m = msg.getBytes(); // transforma msg em bytes
+            byte[] m = msg.getBytes(); /* Transforma msg em bytes */
             DatagramPacket req = new DatagramPacket(m, msg.length(), serv, porta);
-            s.send(req); // envia datagrama contendo a mensagem m
+            s.send(req); /* Envia datagrama contendo a mensagem m */
             System.out.println("* CLIENTE: request enviado: " + msg);
             
            /* byte[] buffer = new byte[1000];
