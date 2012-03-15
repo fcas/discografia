@@ -10,7 +10,7 @@ public class HandlerEchoCommand extends Handler {
 		
 		// se for o comando echo proceder a resposta
 		if (request.getCommand().equals(Commands.ECHO)){
-			System.out.println("echo");
+			System.out.println("o servidor recebeu echo");
 		}else{
 			
 			if (successor != null){
