@@ -9,6 +9,7 @@ package rn.ufrn.dimap;
 public final class SystemConfigurations {
 	private final int TIME_OUT = 6000;
 	private final int MAX_LENGTH_MESSAGE = 1024;
+	private final String DELIMITED_FIELD = ":";
 	private String os = null;
 	private String fileSeparator = null;
 	private String workDiretory=null;
@@ -96,6 +97,13 @@ public final class SystemConfigurations {
 	 */
 	public int getTIME_OUT() {
 		return TIME_OUT;
+	}
+	
+	/**
+	 * @return the dELIMITED_FIELD
+	 */
+	public String getDELIMITED_FIELD() {
+		return DELIMITED_FIELD;
 	}
 	
 }
