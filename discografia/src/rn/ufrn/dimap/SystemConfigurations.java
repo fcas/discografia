@@ -7,7 +7,7 @@ package rn.ufrn.dimap;
  */
 
 public final class SystemConfigurations {
-	
+	private final int MAX_LENGTH_MESSAGE = 1024;
 	private String os = null;
 	private String fileSeparator = null;
 	private String workDiretory=null;
@@ -17,6 +17,7 @@ public final class SystemConfigurations {
 	 * sobre o ambiente de execucao do componente
 	 * @param fileName
 	 */
+	
 	
 	public SystemConfigurations() {
 		setOs();
@@ -78,6 +79,14 @@ public final class SystemConfigurations {
 	
 	private void setWorkDiretory() {
 		this.workDiretory = System.getProperty("user.dir");
+	}
+	
+	/**
+	 * Configura o comprimento maximo das mansagens
+	 * @return o comprimento maxima das mensagens
+	 */
+	public int getMAX_LENGTH_MESSAGE() {
+		return MAX_LENGTH_MESSAGE;
 	}
 	
 }
