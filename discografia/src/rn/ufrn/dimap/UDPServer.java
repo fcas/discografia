@@ -1,5 +1,9 @@
 package rn.ufrn.dimap;
 
+/**
+ * Definicao do componente servidor
+ * que recebe as requisicoes do outros componentes
+ */
 public final class UDPServer {
 		
 	private int port;
@@ -13,7 +17,6 @@ public final class UDPServer {
 		
 	}
 
-	
 	public static void main(String[] args) {
 		
 		while(true){
