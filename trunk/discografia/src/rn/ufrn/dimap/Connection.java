@@ -25,8 +25,8 @@ public final class Connection {
 	private DatagramPacket receiver = null;
 	private String agent;
 	private InetAddress address = null;
-	private int timeOut=1000;
-	private SystemConfigurations sysConfig=null;
+	private int timeOut = 1000;
+	private SystemConfigurations sysConfig = null;
 	
 	
 	/**
