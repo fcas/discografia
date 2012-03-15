@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 public class ClientUDP extends UDPMessage {
 	
-	private String agent=null;
+	private String agent = null;
 	private UDPMessageThreadReceiver receiver = null;
 	private UDPMessageThreadSender sender = null;
 	private Connection conection = null;
-	private boolean slaver=false;
+	private boolean slaver = false;
 	
 	/**
 	 * @return the agent
@@ -52,7 +52,7 @@ public class ClientUDP extends UDPMessage {
 				try {
 					sender = new UDPMessageThreadSender("the cure", InetAddress.getByName("localhost"), 1234);
 				 
-				// enviou o dado
+				/* Enviou o dado */
 				th1 = new Thread(sender);
 				th1.start();
 				
@@ -63,8 +63,7 @@ public class ClientUDP extends UDPMessage {
 				
 				String resp = receiver.getMessage();
 				
-				// tratador das mensagens
-				
+				/* Tratador das mensagens */
 				
 				}catch (Exception e) {
 					e.printStackTrace();
