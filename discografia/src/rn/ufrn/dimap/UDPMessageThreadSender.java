@@ -55,7 +55,6 @@ public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 		
 	}
 
-	
 	/**
 	 * Obtem o endereco do endereco de destino
 	 * da mensagem
@@ -73,9 +72,5 @@ public class UDPMessageThreadSender extends UDPMessage implements Runnable {
 	private void setAddress(InetAddress address) {
 		this.address = address;
 	}
-
-	
 	
 }
-
-
