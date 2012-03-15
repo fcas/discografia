@@ -15,7 +15,7 @@ import java.util.Scanner;
  * de redundancia aos agentes da aplicacao
  */
 
-public class Connection {
+public final class Connection {
 
 	private String fileName = null;
 	private InputStream isFile = null;
