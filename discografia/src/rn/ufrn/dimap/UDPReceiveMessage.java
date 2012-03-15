@@ -18,25 +18,36 @@ public class UDPReceiveMessage {
 	private SystemConfigurations sysConfig = null;
 	private int port;
 	
+	
+	/**
+	 * Construtor padrao
+	 */
+	public UDPReceiveMessage() {
+	}
+	
 	/**
 	 * Constroi o objeto de para receber uma mensagem UDP
 	 * @param port a porta de recebimento do pacote
 	 * @throws SocketException repassando o erro para componente 
 	 */
 	public UDPReceiveMessage(int port) throws SocketException {
-		
 		this.sysConfig = new SystemConfigurations(); 
 		this.port = port;
-		this.socket = new DatagramSocket(port);
-		
 	}
 	
+	
+	/** Configura um DatagramSocket
+	 * @param socket the socket to set
+	 */
+	public void setSocket(DatagramSocket socket) {
+		this.socket = socket;
+	}
 	
 	/**
 	 * recebe a mensagem UDP
 	 * @throws IOException
 	 */
-	public void receive() throws Exception{
+	public void receive() throws IOException{
 		
 		byte[] arrayByte = new byte[sysConfig.getMAX_LENGTH_MESSAGE()];
 		packet = new DatagramPacket(arrayByte,arrayByte.length);
@@ -46,8 +57,7 @@ public class UDPReceiveMessage {
 		data = new String(packet.getData());
 		
 		setMessage(data);
-		closeSocket();	
-		
+
 	}
 	
 
@@ -76,15 +86,6 @@ public class UDPReceiveMessage {
 	private void setMessage(String text){
 		this.menssage=text;
 	}
-	
-	/**
-	 * Fecha o sokete utilizado
-	 */
-	private void closeSocket(){
-		if (socket !=null)
-			socket.close();
-	}
-	
 	
 	/* teste simple de envio de mensagem
 	public static void main(String[] args) {
