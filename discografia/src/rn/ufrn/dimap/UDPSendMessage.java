@@ -63,16 +63,16 @@ public final class UDPSendMessage {
 			socket.close();
 	}
 	
-	/* teste simple de envio de mensagem
+	// teste simple de envio de mensagem
 	public static void main(String[] args) {
 		try {
 			
-			new UDPSendMessage("olha", InetAddress.getByName("localhost"),1025).sender();
+			System.out.println("cliente enviando ");
+			new UDPSendMessage("ECHO:ECHO", InetAddress.getByName("localhost"),1025).sender();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	*/
 	
 }
