@@ -85,6 +85,7 @@ public final class UDPServer {
 		
 		Commands enumCommand;
 		
+		// a ordem da cadei he importante
 		Handler handlerGet = new HandlerGetCommand();
 		Handler handlerWhere = new HandlerWhereCommand();
 		Handler handlerPut = new HandlerPutCommand();
@@ -103,7 +104,7 @@ public final class UDPServer {
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.printf("Comando nao implementado: %s",cmd);
 		}
 		
 		
@@ -152,6 +153,11 @@ public final class UDPServer {
 	 */
 	public void setRequest(Request request) {
 		this.request = request;
+	}
+	
+	
+	public void replicatation(){
+		
 	}
 	
 	
