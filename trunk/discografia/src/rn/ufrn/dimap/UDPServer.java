@@ -10,7 +10,7 @@ import java.net.SocketException;
  * que recebe as requisicoes do outros componentes
  */
 public final class UDPServer {
-		
+	
 	private int port;
 	private boolean primary = true;
 	private Request request = null;
@@ -58,11 +58,8 @@ public final class UDPServer {
 			} catch (Exception e){
 				e.printStackTrace();
 			}
-			
-			
+				
 		}
-		
-		
 		
 	}
 	
@@ -77,6 +74,8 @@ public final class UDPServer {
 			String arg = linha.split(sysConfig.getDELIMITED_FIELD())[1];
 			handlerCommand(cmd, arg);
 			
+		}else{
+			System.out.printf("comando mal formado: %s",linha);
 		}
 		
 	}
