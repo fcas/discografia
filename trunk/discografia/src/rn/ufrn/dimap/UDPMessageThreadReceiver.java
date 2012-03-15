@@ -10,17 +10,16 @@ public class UDPMessageThreadReceiver extends UDPMessage implements Runnable {
 	private DatagramSocket socket = null;
 	private DatagramPacket packet = null;
 	private int port;
-	
-	
-	
+		
 	/**
 	 * Constroi um objeto runnable para recebimento das menssagens
 	 * dos componentes
 	 * 
-	 * @param port a porta que o componente escutarar
+	 * @param port a porta que o componente escuta
 	 * @throws SocketException repassando a Exception 
 	 * para o componente
 	 */
+	
 	public UDPMessageThreadReceiver(int port) throws SocketException {
 		this.port=port;
 		this.socket = new DatagramSocket(port);
@@ -31,7 +30,6 @@ public class UDPMessageThreadReceiver extends UDPMessage implements Runnable {
 		
 		byte[] buffer = new byte[1024];
 		
-
 		while(true){
 			
 			try {
@@ -39,8 +37,7 @@ public class UDPMessageThreadReceiver extends UDPMessage implements Runnable {
 				socket.receive(packet);
 				String message = new String(packet.getData());
 				super.setMessage(message);
-				
-				
+						
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
