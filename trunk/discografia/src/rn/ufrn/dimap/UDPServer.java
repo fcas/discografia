@@ -12,12 +12,11 @@ import java.net.SocketException;
 public final class UDPServer {
 		
 	private int port;
-	private boolean primary;
+	private boolean primary = true;
 	private Request request = null;
-	private HandlerGetCommand getCommand = null;
+	private Handler handler = null;
 	private UDPReceiveMessage receiveMessage = null;
-	//private UDPSendMessage sendMessage = null;
-	
+	private SystemConfigurations sysConfig = null;
 	
 	/**
 	 * Constroi o componente servidor
@@ -28,6 +27,7 @@ public final class UDPServer {
 		
 		this.port = port;
 		this.primary = primary;
+		this.sysConfig = new SystemConfigurations();
 		
 	}
 
@@ -35,11 +35,11 @@ public final class UDPServer {
 	 * Fica esperando as requisicoes
 	 * @throws SocketException 
 	 */
-	public void doIt() throws SocketException{
+	public void listenIt() throws SocketException{
 		
 		// abrindo a porta do servidor
 		DatagramSocket socket = new DatagramSocket(port);
-		String data = null;
+		String contentMessage = null;
 		
 		while(true){
 			
@@ -47,13 +47,58 @@ public final class UDPServer {
 			receiveMessage.setSocket(socket);	
 			
 			try {
+				
 				receiveMessage.receive();
+				contentMessage = receiveMessage.getMessage();
+				lineCatch(contentMessage);
+				
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (Exception e){
 				e.printStackTrace();
 			}
 			
+			
 		}
 		
+		
+		
+	}
+	
+	
+	public void lineCatch(String linha){
+		
+		// procura o delimitador das mensagens
+		if (linha.contains(sysConfig.getDELIMITED_FIELD())){
+			
+			// obtendo os campos comando e argumento
+			String cmd = linha.split(sysConfig.getDELIMITED_FIELD())[0];
+			String arg = linha.split(sysConfig.getDELIMITED_FIELD())[1];
+			handlerRequest(cmd, arg);
+			
+		}
+		
+	}
+	
+	public void handlerRequest(String cmd, String arg){
+		
+		Commands enumCommand;
+		
+		handler = new HandlerGetCommand();
+		handler = new HandlerPutCommand();
+		handler = new HandlerWhereCommand();
+		
+		
+		try {
+		
+			enumCommand = Commands.valueOf(cmd);
+			request = new Request(enumCommand, arg);
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		
 	}
@@ -71,7 +116,7 @@ public final class UDPServer {
 		
 		try {
 			
-			new UDPServer(port, mode).doIt();
+			new UDPServer(port, mode).listenIt();
 			
 		} catch (SocketException e) {
 			e.printStackTrace();
