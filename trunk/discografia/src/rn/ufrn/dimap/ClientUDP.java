@@ -74,7 +74,6 @@ public class ClientUDP extends UDPMessage {
 			
 		}
 		
-	}
-	
+	}	
 	
 }
