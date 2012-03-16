@@ -17,11 +17,11 @@ public class HandlerPutCommand extends Handler {
 		if (request.getCommand().equals(Commands.PUT)){
 			
 			String del = sysConfig.getDELIMITED_FIELD();
-			String artista = request.getArgument();
-			String info = request.getInfo();
+			String argument = request.getArgument();
+						
+			// adicionado as informacoes 
+			mapArtist.add(argument.split(del)[0],argument.split(del)[1]);
 			
-			// adicionado a informacao 
-			mapArtist.add(String.format("%s", artista.split(del)[0]),info);
 				
 		}else{
 			
