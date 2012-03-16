@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public final class ListServerSecundary {
 
-	// nao permite dados repetidos
+	/* Nao permite dados repetidos */
 	private Set<String>listSecundaryServer = null;
 	
 	public ListServerSecundary() {
