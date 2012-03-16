@@ -1,10 +1,10 @@
 package rn.ufrn.dimap;
 
-public class HandlerCommand {
+public class HandlerCommand(String cmd, String arg){
 
 	Handler handlerGet = new HandlerGetCommand();
 	Handler handlerData = new HandlerDataCommand();
-	Handler handlerDisco = new HandlerDiscoCommand();
+	Handler handlerDisco = new HandlserDiscoCommand();
 	Handler handlerEcho = new HandlerEchoCommand();
 	
 	handlerGet.setSucessor(handlerData);

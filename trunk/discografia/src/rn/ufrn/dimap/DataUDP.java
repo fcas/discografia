@@ -25,8 +25,7 @@ public final class DataUDP {
 			
 			System.out.println("PUT - Enviar discografia\n");
 			String userMessage = scan.nextLine();			
-			lineCatch(userMessage);
-			
+			lineCatch(userMessage);	
 		}
 	}
 	
@@ -44,38 +43,13 @@ public final class DataUDP {
 	      }
 	}
 	
-	public void handlerCommand(String cmd, String arg){
-		
-		Commands enumCommand;
-		
-		/* A ordem da cadeia eh importante */
-		Handler handlerGet = new HandlerGetCommand();
-		Handler handlerData = new HandlerDataCommand();
-		Handler handlerDisco = new HandlerDiscoCommand();
-		Handler handlerEcho = new HandlerEchoCommand();
-		
-		handlerGet.setSucessor(handlerData);
-		handlerData.setSucessor(handlerDisco);
-		handlerDisco.setSucessor(handlerEcho);
-		
-		try {
-		
-			enumCommand = Commands.valueOf(cmd);
-			request = new Request(enumCommand, arg);
-			handlerGet.handleRequest(request);
-			
-			
-		} catch (Exception e) {
-			System.out.printf("Comando nao implementado: %s",cmd);
-		}
-	}
-	
+	HandlerCommand
 	
 	public static void main(String[] args) {
 		
 		try {
-			ClientShow client = new ClientShow(1090);
-			System.out.println("Cliente inicializado.\n Bem-vindo, usuario.");
+			DataUDP client = new DataUDP(1090);
+			System.out.println("DataUDP inicializado.\n.");
 			client.listenKB();
 		} finally {
 			
