@@ -16,6 +16,9 @@ public final class ConsoleMessage {
 	 * @param messagem a mensagem que o componente quer criar
 	 */
 	
+	public ConsoleMessage() {
+	}
+	
 	public ConsoleMessage(String agent, String messagem) {
 		super();
 		setAgent(agent);
@@ -54,7 +57,7 @@ public final class ConsoleMessage {
 	 * @param messagem
 	 */
 	
-	private void setMessagem(String messagem) {
+	public void setMessagem(String messagem) {
 		this.message = messagem;
 	}
 		
