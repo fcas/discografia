@@ -1,28 +1,25 @@
 package rn.ufrn.dimap;
 
-import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.SocketException;
 /**
  * Trantando o comando get
  */
 
 public class HandlerGetCommand extends Handler {
 
-	private DatagramSocket s = null;
-	private UDPSendMessage sendMessage = null;
-	private Connection connect = null;
+	//private DatagramSocket s = null;
+	//private UDPSendMessage sendMessage = null;
+	private ConsoleMessage consoleMsg = null;
+	
 	
 	@Override
 	public void handleRequest(Request request) {
+		consoleMsg = new ConsoleMessage();
 		
-		/* Se for o comando get proceder a resposta */
+		
 		if (request.getCommand().equals(Commands.GET)){
+			consoleMsg.setMessagem("O comando GET sera tratado.");
+			consoleMsg.print();
 			
-			connect = new Connection("hosts.txt", "Client");
-			/*sendMessage = new UDPSendMessage(request.getArgument(), connect.getAddress(), port);
-			 * PRECISAMOS DESCOBRIR COMO É QUE O GET VAI SABER A PORTA DO SERVIDOR PELO CONNECTION.*/
-			System.out.println("\n* Client: Socket criado na porta: " + s.getLocalPort());
 		}else{
 			
 			if (successor != null){
