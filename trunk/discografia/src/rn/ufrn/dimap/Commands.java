@@ -13,11 +13,10 @@ package rn.ufrn.dimap;
  *  
  */
 public enum Commands {
-	ECHO,
-	DATA,
 	GET,
 	PUT,
+	DISCO,
 	WHERE,
+	ECHO,
 	SYNC,
-	DISCO
 }

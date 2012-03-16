@@ -42,13 +42,16 @@ public final class DataUDP {
 			String cmd = linha.split(sysConfig.getDELIMITED_FIELD())[0];
 			String arg = linha.split(sysConfig.getDELIMITED_FIELD())[1];
 			
+			
 			try {
 				handlerCommand = new HandlerCommand(cmd, arg);
+				
 			} catch (Exception e) {
 				consoleMessage.print();
 			}
 			
 		} else {
+			consoleMessage.setMessagem("Delimitador não encontrado");
 			consoleMessage.print();
 	      }
 	}
