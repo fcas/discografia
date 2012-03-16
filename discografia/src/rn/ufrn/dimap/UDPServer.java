@@ -17,6 +17,7 @@ public final class UDPServer {
 	private SystemConfigurations sysConfig = null;
 	private DatagramSocket socket = null;
 	private HandlerCommand handlerCommand=null;
+	private ConsoleMessage consoleMessage = null;
 	
 	
 	/**
@@ -30,7 +31,9 @@ public final class UDPServer {
 		this.port = port;
 		this.sysConfig = new SystemConfigurations(); 
 		this.socket = new DatagramSocket(port);
-		
+		consoleMessage = new ConsoleMessage("Servidor", 
+				String.format("iniciado na porta %s",port));
+		consoleMessage.print();
 		
 	}
 
@@ -42,9 +45,7 @@ public final class UDPServer {
 	public void listenIt() throws SocketException{
 		
 		String contentMessage = null;
-		
-		System.out.println("Servidor escutando: ");
-		
+				
 		while(true){
 			
 			receiveMessage = new UDPReceiveMessage(port);
@@ -70,6 +71,7 @@ public final class UDPServer {
 	public void lineCatch(String linha){
 		
 		String del = sysConfig.getDELIMITED_FIELD();
+		consoleMessage.setMessagem("Comando mal formado.");
 		
 		// procura o delimitador das mensagens
 		if (linha.contains(del)){
@@ -81,12 +83,12 @@ public final class UDPServer {
 			try {
 				handlerCommand = new HandlerCommand(cmd, arg);
 			} catch (Exception e) {
-				System.out.print("Comando mal formado.");
+				consoleMessage.print();
 			}
 			
 			
 		}else{
-			System.out.printf("comando mal formado: %s",linha);
+			consoleMessage.print();
 		}
 		
 	}
