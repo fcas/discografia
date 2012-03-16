@@ -1,7 +1,9 @@
 package rn.ufrn.dimap;
 
-public class HandlerCommand(String cmd, String arg){
+public class HandlerCommand (){
 
+	public HandlerCommand (String cmd, String arg) {
+	
 	Handler handlerGet = new HandlerGetCommand();
 	Handler handlerData = new HandlerDataCommand();
 	Handler handlerDisco = new HandlserDiscoCommand();
@@ -20,6 +22,8 @@ public class HandlerCommand(String cmd, String arg){
 		
 	} catch (Exception e) {
 		System.out.printf("Comando nao implementado: %s",cmd);
+	}
+	
 	}
 	
 }
