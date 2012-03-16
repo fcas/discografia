@@ -12,16 +12,11 @@ import java.net.SocketException;
 public final class UDPServer {
 	
 	private int port;
-	private boolean primary = true;
 	private Request request = null;
 	private UDPReceiveMessage receiveMessage = null;
 	private SystemConfigurations sysConfig = null;
-	private Handler handlerGet = null;
-	private Handler handlerWhere = null;
-	private Handler handlerPut = null;
-	private Handler handlerEcho = null;
-	private Handler handlerSync = null;
 	private DatagramSocket socket = null;
+	private HandlerCommand handlerCommand=null;
 	
 	
 	/**
@@ -33,26 +28,8 @@ public final class UDPServer {
 	public UDPServer(int port, boolean primary) throws SocketException {
 		
 		this.port = port;
-		this.handlerGet = new HandlerGetCommand();
-		this.handlerWhere = new HandlerWhereCommand();
-		this.handlerPut = new HandlerPutCommand();
-		this.handlerEcho = new HandlerEchoCommand();
-		this.handlerSync = new HandlerSyncCommand();
-		this.sysConfig = new SystemConfigurations();
-		// abrindo a porta 
+		this.sysConfig = new SystemConfigurations(); 
 		this.socket = new DatagramSocket(port);
-		
-		// Corrente de sucessão
-		handlerGet.setSucessor(handlerWhere);
-		handlerWhere.setSucessor(handlerPut);
-		handlerPut.setSucessor(handlerEcho);
-		handlerEcho.setSucessor(handlerSync);
-		
-		
-		if (!primary){
-			Request requestSync = new Request(Commands.SYNC,"");
-			handlerSync.handleRequest(requestSync);
-		}
 		
 		
 	}
@@ -101,7 +78,12 @@ public final class UDPServer {
 			String cmd = linha.split(del)[0];
 			String arg = linha.split(del)[1];
 			
-			handlerCommand(cmd, arg);
+			try {
+				handlerCommand = new HandlerCommand(cmd, arg);
+			} catch (Exception e) {
+				System.out.print("Comando mal formado.");
+			}
+			
 			
 		}else{
 			System.out.printf("comando mal formado: %s",linha);
@@ -109,24 +91,7 @@ public final class UDPServer {
 		
 	}
 	
-	public void handlerCommand(String cmd, String arg){
-		
-		Commands enumCommand;
-						
-		try {
-		
-			enumCommand = Commands.valueOf(cmd);
-			request = new Request(enumCommand, arg);
-			// chamando o primeiro handler da corrente
-			handlerGet.handleRequest(request);
-			
-			
-		} catch (Exception e) {
-			System.out.printf("Comando nao implementado: %s",cmd);
-		}
-		
-		
-	}
+	
 
 	
 	/**
@@ -157,14 +122,23 @@ public final class UDPServer {
 		this.request = request;
 	}
 	
+		
 	/**
-	 * @return the handlerPut
+	 * @return the handlerCommand
 	 */
-	public Handler getHandlerPut() {
-		return handlerPut;
+	public HandlerCommand getHandlerCommand() {
+		return handlerCommand;
 	}
 
-	
+
+	/**
+	 * @param handlerCommand the handlerCommand to set
+	 */
+	public void setHandlerCommand(HandlerCommand handlerCommand) {
+		this.handlerCommand = handlerCommand;
+	}
+
+
 	public static void main(String[] args) {
 		
 		/*
