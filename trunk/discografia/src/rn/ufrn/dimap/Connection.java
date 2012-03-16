@@ -25,6 +25,7 @@ public final class Connection {
 	private DatagramPacket receiver = null;
 	private String agent;
 	private InetAddress address = null;
+
 	private int timeOut = 1000;
 	private SystemConfigurations sysConfig = null;
 	
@@ -89,6 +90,10 @@ public final class Connection {
 	 * @return address o endereco de algum sevidor disponivel
 	 */
 	
+	public InetAddress getAddress() {
+		return address;
+	}
+	
 	private void checkServer(){
 		
 			if (this.isFile != null){
@@ -151,7 +156,7 @@ public final class Connection {
 				address = socket.getInetAddress();
 			
 		} catch (Exception e) {
-			new ConsoleMessage(agent, e.getMessage()).outErro();
+			new ConsoleMessage(agent, e.getMessage());
 		}
 		
 		return address;

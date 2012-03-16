@@ -1,7 +1,7 @@
 package rn.ufrn.dimap;
 
 /**
- * Trantando o comando get
+ * Trantando o comando Echo
  */
 
 public class HandlerEchoCommand extends Handler {
