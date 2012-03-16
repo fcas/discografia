@@ -3,13 +3,17 @@ package rn.ufrn.dimap;
 public final class HandlerSyncCommand extends Handler {
 	
 	private ListServerSecundary listServers = null;
+	private ConsoleMessage consoleMsg = null;
 		
 	@Override
 	public void handleRequest(Request request) {
+		consoleMsg = new ConsoleMessage();
 		
 		if (request.getCommand().equals(Commands.SYNC)){
 			String server = request.getArgument();
 			listServers.add(server);
+			consoleMsg.setMessagem("O comando SYNC sera tratado.");
+			consoleMsg.print();
 		}else{
 			
 			if (successor != null){
