@@ -40,9 +40,9 @@ public final class UDPServer {
 		DatagramSocket socket = new DatagramSocket(port);
 		String contentMessage = null;
 		
-		System.out.println("Servidor escutando: ");
-		
 		while(true){
+			///Não é pra ser aqui?!
+			System.out.println("Servidor escutando: ");
 			
 			receiveMessage = new UDPReceiveMessage(port);
 			receiveMessage.setSocket(socket);	
@@ -75,7 +75,7 @@ public final class UDPServer {
 			handlerCommand(cmd, arg);
 			
 		}else{
-			System.out.printf("comando mal formado: %s",linha);
+			System.out.printf("Comando mal formado: %s",linha);
 		}
 		
 	}
@@ -108,8 +108,6 @@ public final class UDPServer {
 		
 		
 	}
-	
-	
 	
 	
 	/**

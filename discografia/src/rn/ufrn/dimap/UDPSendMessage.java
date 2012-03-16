@@ -26,7 +26,7 @@ public final class UDPSendMessage {
 	 * @param port a porta de destino
 	 * @throws SocketException repassando o erro para componente 
 	 */
-	public UDPSendMessage(String content, InetAddress serverAdress,int port) throws SocketException {
+	public UDPSendMessage(String content, InetAddress serverAdress, int port) throws SocketException {
 		this.socket = new DatagramSocket();
 		this.serverAdress = serverAdress;
 		this.port = port;

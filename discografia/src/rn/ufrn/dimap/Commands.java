@@ -9,5 +9,6 @@ public enum Commands {
 	DATA,
 	GET,
 	PUT,
-	WHERE
+	WHERE,
+	DISCO
 }
