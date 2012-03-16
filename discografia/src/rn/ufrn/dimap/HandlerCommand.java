@@ -4,8 +4,8 @@ public class HandlerCommand{
 
 	private Handler handlerGet = null;
 	private Handler handlerPut = null;
-	private Handler handlerData = null;
 	private Handler handlerDisco = null;
+	private Handler handlerWhere = null;
 	private Handler handlerEcho = null;
 	private Handler handlerSync = null;
 	private Request request = null;
@@ -73,8 +73,8 @@ public class HandlerCommand{
 		
 		handlerGet = new HandlerGetCommand();
 		handlerPut = new HandlerPutCommand();
-		handlerData = new HandlerDataCommand();
 		handlerDisco = new HandlerDiscoCommand();
+		handlerWhere = new HandlerWhereCommand();
 		handlerEcho = new HandlerEchoCommand();
 		handlerSync = new HandlerSyncCommand();
 		
@@ -92,9 +92,9 @@ public class HandlerCommand{
 	private void chainOfResponsibility(){	
 		
 		handlerGet.setSucessor(handlerPut);
-		handlerPut.setSucessor(handlerData);
-		handlerData.setSucessor(handlerDisco);
-		handlerDisco.setSucessor(handlerEcho);
+		handlerPut.setSucessor(handlerDisco);
+		handlerDisco.setSucessor(handlerWhere);
+		handlerWhere.setSucessor(handlerEcho);
 		handlerEcho.setSucessor(handlerSync);
 		
 	}
@@ -102,6 +102,7 @@ public class HandlerCommand{
 	/**
 	 * @return the handlerSync
 	 */
+	
 	public Handler getHandlerSync() {
 		return handlerSync;
 	}

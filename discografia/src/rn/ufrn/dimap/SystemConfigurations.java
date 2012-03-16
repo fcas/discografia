@@ -1,5 +1,7 @@
 package rn.ufrn.dimap;
 
+import javax.swing.JPopupMenu.Separator;
+
 /**
  * Classe usada para obter as configuracoes
  * do sistemas dos componentes da aplicao
@@ -11,6 +13,9 @@ public final class SystemConfigurations {
 	private final int MAX_LENGTH_MESSAGE = 1024;
 	private final String DELIMITED_FIELD = ":";
 	private final int DEFAULT_KEY=20;
+	private final String CONFIG_FILE = "host.txt";
+	
+
 	/**
 	 * @return the dEFAULT_KEY
 	 */
@@ -113,5 +118,14 @@ public final class SystemConfigurations {
 	public String getDELIMITED_FIELD() {
 		return DELIMITED_FIELD;
 	}
+	
+	public String getCONFIG_FILE() {
+		return CONFIG_FILE;
+	}
+	
+	public String getConfigPath(){
+		return workDiretory+fileSeparator+CONFIG_FILE;
+	}
+	
 	
 }
