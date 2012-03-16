@@ -14,8 +14,6 @@ public final class ClientShow {
 	private SystemConfigurations sysConfig = null;
 	private Scanner scan = null;
 	
-	
-	
 	public ClientShow (int port){
 		this.port = port;
 		this.scan = new Scanner(System.in);
@@ -41,49 +39,19 @@ public final class ClientShow {
 	
 	public void lineCatch(String linha){
 			
-			// procura o delimitador das mensagens
+			/* Procura o delimitador das mensagens */
 			if (linha.contains(sysConfig.getDELIMITED_FIELD())){
 				
-				// obtendo os campos comando e argumento
+				/* Obtendo os campos comando e argumento */
 				String cmd = linha.split(sysConfig.getDELIMITED_FIELD())[0];
 				String arg = linha.split(sysConfig.getDELIMITED_FIELD())[1];
-				handlerCommand(cmd, arg);
+				HandlerCommand(cmd, arg);
 				
 			}else{
 				System.out.printf("Comando mal formado: %s",linha);
 			}
 			
-		}
-	
-	
-	
-	public void handlerCommand(String cmd, String arg){
-		
-		Commands enumCommand;
-		
-		// a ordem da cadei he importante
-		Handler handlerGet = new HandlerGetCommand();
-		Handler handlerData = new HandlerDataCommand();
-		Handler handlerDisco = new HandlerDiscoCommand();
-		Handler handlerEcho = new HandlerEchoCommand();
-		
-		handlerGet.setSucessor(handlerData);
-		handlerData.setSucessor(handlerDisco);
-		handlerDisco.setSucessor(handlerEcho);
-		//		
-		
-		try {
-		
-			enumCommand = Commands.valueOf(cmd);
-			request = new Request(enumCommand, arg);
-			handlerGet.handleRequest(request);
-			
-			
-		} catch (Exception e) {
-			System.out.printf("Comando nao implementado: %s",cmd);
-		}
 	}
-	
 	
 	public static void main(String[] args) {
 		

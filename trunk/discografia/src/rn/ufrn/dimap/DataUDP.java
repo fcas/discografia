@@ -37,13 +37,11 @@ public final class DataUDP {
 			/* Obtendo os campos comando e argumento */
 			String cmd = linha.split(sysConfig.getDELIMITED_FIELD())[0];
 			String arg = linha.split(sysConfig.getDELIMITED_FIELD())[1];
-			handlerCommand(cmd, arg);
+			HandlerCommand (cmd, arg);
 		} else {
 			System.out.printf("Comando mal formado: %s",linha);
 	      }
 	}
-	
-	HandlerCommand
 	
 	public static void main(String[] args) {
 		
