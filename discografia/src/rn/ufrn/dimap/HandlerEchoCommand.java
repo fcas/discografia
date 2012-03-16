@@ -8,6 +8,7 @@ public class HandlerEchoCommand extends Handler {
 
 	private ConsoleMessage consoleMsg = null;
 	
+	
 	@Override
 	public void handleRequest(Request request) {
 		
@@ -26,5 +27,20 @@ public class HandlerEchoCommand extends Handler {
 		}
 		
 	}
+	
+	/**
+	 * @return the consoleMsg
+	 */
+	public ConsoleMessage getConsoleMsg() {
+		return consoleMsg;
+	}
 
+	/**
+	 * @param consoleMsg the consoleMsg to set
+	 */
+	public void setConsoleMsg(ConsoleMessage consoleMsg) {
+		this.consoleMsg = consoleMsg;
+	}
+
+	
 }
