@@ -7,21 +7,25 @@ public class HandlerPutCommand extends Handler {
 
 	private MapArtist mapArtist = null;
 	private SystemConfigurations sysConfig = null;
+	private ConsoleMessage consoleMsg = null;
 	
 	@Override
 	public void handleRequest(Request request) {
 		
-		this.mapArtist = new MapArtist();
-		this.sysConfig = new SystemConfigurations();
+		mapArtist = new MapArtist();
+		sysConfig = new SystemConfigurations();
+		consoleMsg = new ConsoleMessage();
 		
 		if (request.getCommand().equals(Commands.PUT)){
+			
 			
 			String del = sysConfig.getDELIMITED_FIELD();
 			String argument = request.getArgument();
 						
 			// adicionado as informacoes 
 			mapArtist.add(argument.split(del)[0],argument.split(del)[1]);
-			
+			consoleMsg.setMessagem("O comando Put sera tratado.");
+			consoleMsg.print();
 				
 		}else{
 			
