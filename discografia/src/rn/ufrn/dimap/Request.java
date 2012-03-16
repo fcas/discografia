@@ -10,7 +10,6 @@ public final class Request {
 	
 	private Commands command;
 	private String argument;
-	private String info = null;	// usado para armazenar as informacoes do requisitante
 	
 	/**
 	 * Controi o objeto requiscao
@@ -49,20 +48,5 @@ public final class Request {
 		this.argument = argument;
 	}
 
-	/**
-	 * Guarda informacoes extra sobre o requisitante
-	 * @param info as informacoes sobre o requisitante
-	 */
-	public void setInfo(String info){
-		this.info=info;
-	}
-	
-	/**
-	 * Pegas os dados extras do requisitante
-	 * @return
-	 */
-	public String getInfo(){
-		return info;
-	}
 	
 }
