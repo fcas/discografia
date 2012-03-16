@@ -10,6 +10,14 @@ public final class SystemConfigurations {
 	private final int TIME_OUT = 6000;
 	private final int MAX_LENGTH_MESSAGE = 1024;
 	private final String DELIMITED_FIELD = ":";
+	private final int DEFAULT_KEY=20;
+	/**
+	 * @return the dEFAULT_KEY
+	 */
+	public int getDEFAULT_KEY() {
+		return DEFAULT_KEY;
+	}
+
 	private String os = null;
 	private String fileSeparator = null;
 	private String workDiretory=null;
