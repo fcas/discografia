@@ -6,12 +6,14 @@ public class HandlerCommand (){
 	
 	Handler handlerGet = new HandlerGetCommand();
 	Handler handlerData = new HandlerDataCommand();
-	Handler handlerDisco = new HandlserDiscoCommand();
+	Handler handlerDisco = new HandlerDiscoCommand();
 	Handler handlerEcho = new HandlerEchoCommand();
+	Handler handlerPut = new HandlerPutCommand();
 	
 	handlerGet.setSucessor(handlerData);
 	handlerData.setSucessor(handlerDisco);
 	handlerDisco.setSucessor(handlerEcho);
+	handlerEcho.setSucessor(handlerPut);
 	
 	try {
 		
@@ -26,4 +28,3 @@ public class HandlerCommand (){
 	
 	}
 	
-}
