@@ -39,7 +39,7 @@ public final class ConsoleMessage {
 	 * @param agent o nome do componente
 	 */
 
-	private void setAgent(String agent) {
+	public void setAgent(String agent) {
 		this.agentName = agent;
 	}
 
