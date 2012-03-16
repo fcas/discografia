@@ -16,33 +16,59 @@ public final class UDPServer {
 	private Request request = null;
 	private UDPReceiveMessage receiveMessage = null;
 	private SystemConfigurations sysConfig = null;
+	private Handler handlerGet = null;
+	private Handler handlerWhere = null;
+	private Handler handlerPut = null;
+	private Handler handlerEcho = null;
+	private Handler handlerSync = null;
+	private DatagramSocket socket = null;
+	
 	
 	/**
 	 * Constroi o componente servidor
 	 * @param port a porta de escuta
 	 * @param primary e modo: primary e secundary
+	 * @throws SocketException 
 	 */
-	public UDPServer(int port, boolean primary) {
+	public UDPServer(int port, boolean primary) throws SocketException {
 		
 		this.port = port;
-		this.primary = primary;
+		this.handlerGet = new HandlerGetCommand();
+		this.handlerWhere = new HandlerWhereCommand();
+		this.handlerPut = new HandlerPutCommand();
+		this.handlerEcho = new HandlerEchoCommand();
+		this.handlerSync = new HandlerSyncCommand();
 		this.sysConfig = new SystemConfigurations();
+		// abrindo a porta 
+		this.socket = new DatagramSocket(port);
+		
+		// Corrente de sucess√£o
+		handlerGet.setSucessor(handlerWhere);
+		handlerWhere.setSucessor(handlerPut);
+		handlerPut.setSucessor(handlerEcho);
+		handlerEcho.setSucessor(handlerSync);
+		
+		
+		if (!primary){
+			Request requestSync = new Request(Commands.SYNC,"");
+			handlerSync.handleRequest(requestSync);
+		}
+		
 		
 	}
 
+		
 	/**
 	 * Fica esperando as requisicoes
 	 * @throws SocketException 
 	 */
 	public void listenIt() throws SocketException{
 		
-		// abrindo a porta do servidor
-		DatagramSocket socket = new DatagramSocket(port);
 		String contentMessage = null;
 		
+		System.out.println("Servidor escutando: ");
+		
 		while(true){
-			///N„o È pra ser aqui?!
-			System.out.println("Servidor escutando: ");
 			
 			receiveMessage = new UDPReceiveMessage(port);
 			receiveMessage.setSocket(socket);	
@@ -66,16 +92,19 @@ public final class UDPServer {
 	
 	public void lineCatch(String linha){
 		
+		String del = sysConfig.getDELIMITED_FIELD();
+		
 		// procura o delimitador das mensagens
-		if (linha.contains(sysConfig.getDELIMITED_FIELD())){
+		if (linha.contains(del)){
 			
 			// obtendo os campos comando e argumento
-			String cmd = linha.split(sysConfig.getDELIMITED_FIELD())[0];
-			String arg = linha.split(sysConfig.getDELIMITED_FIELD())[1];
+			String cmd = linha.split(del)[0];
+			String arg = linha.split(del)[1];
+			
 			handlerCommand(cmd, arg);
 			
 		}else{
-			System.out.printf("Comando mal formado: %s",linha);
+			System.out.printf("comando mal formado: %s",linha);
 		}
 		
 	}
@@ -83,22 +112,12 @@ public final class UDPServer {
 	public void handlerCommand(String cmd, String arg){
 		
 		Commands enumCommand;
-		
-		// a ordem da cadei he importante
-		Handler handlerGet = new HandlerGetCommand();
-		Handler handlerWhere = new HandlerWhereCommand();
-		Handler handlerPut = new HandlerPutCommand();
-		Handler handlerEcho = new HandlerEchoCommand();
-		
-		handlerGet.setSucessor(handlerWhere);
-		handlerWhere.setSucessor(handlerPut);
-		handlerPut.setSucessor(handlerEcho);
-		//		
-		
+						
 		try {
 		
 			enumCommand = Commands.valueOf(cmd);
 			request = new Request(enumCommand, arg);
+			// chamando o primeiro handler da corrente
 			handlerGet.handleRequest(request);
 			
 			
@@ -108,22 +127,8 @@ public final class UDPServer {
 		
 		
 	}
-	
-	
-	/**
-	 * @return the primary
-	 */
-	public boolean isPrimary() {
-		return primary;
-	}
 
-	/**
-	 * @param primary the primary to set
-	 */
-	public void setPrimary(boolean primary) {
-		this.primary = primary;
-	}
-
+	
 	/**
 	 * @return the port
 	 */
@@ -146,17 +151,19 @@ public final class UDPServer {
 	}
 
 	/**
-	 * @param request the request to set
+	 * @param request 
 	 */
 	public void setRequest(Request request) {
 		this.request = request;
 	}
 	
-	
-	public void replicatation(){
-		
+	/**
+	 * @return the handlerPut
+	 */
+	public Handler getHandlerPut() {
+		return handlerPut;
 	}
-	
+
 	
 	public static void main(String[] args) {
 		
