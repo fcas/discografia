@@ -15,6 +15,10 @@ public class UDPMessage{
 	 * @return o texto da mensagem
 	 */
 	
+	public UDPMessage(String text) {
+		this.message = text;
+	}
+	
 	public String getMessage()
 	{
 		message = new String(buffer);
