@@ -2,8 +2,12 @@ package rn.ufrn.dimap;
 
 public class HandlerCommand (){
 
-	public HandlerCommand (String cmd, String arg) {
+	private Request request = null;
 	
+	public void handlercommand (String cmd, String arg) {
+
+	Commands enumCommand;
+		
 	Handler handlerGet = new HandlerGetCommand();
 	Handler handlerData = new HandlerDataCommand();
 	Handler handlerDisco = new HandlerDiscoCommand();
@@ -25,6 +29,4 @@ public class HandlerCommand (){
 	} catch (Exception e) {
 		System.out.printf("Comando nao implementado: %s",cmd);
 	}
-	
-	}
-	
+}
