@@ -1,32 +1,25 @@
 package rn.ufrn.dimap;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class HandlerPutCommand extends Handler {
-	private ConsoleMessage consoleMsg = null;
-	private Connection connection = null;
-	private UDPSendMessage sendMessage = null;
-		
+public class HandlerEndCommand extends Handler {
+	
+	private UDPSendMessage sendMessage=null;
+
 	@Override
 	public void handleRequest(Request request) {
-	
-		consoleMsg = new ConsoleMessage();
-		consoleMsg.setAgent("DataProvider");
-		
-		if (request.getCommand().equals(Commands.PUT)){
-	
-			String messagem = new String(request.getArgument());
+	if (request.getCommand().equals(Commands.DATA)){
 			
+			String data = request.getArgument().split(":")[0];
+			String ip = request.getArgument().split(":")[1];
+			int port = Integer.parseInt(request.getArgument().split(":")[2]);
 			
 			try {
-				
-				sendMessage = new UDPSendMessage(messagem, InetAddress.getByName("localhost"),1025);
+				sendMessage = new UDPSendMessage(data, InetAddress.getByName(ip),port);
 				sendMessage.sender();
-				
 			} catch (SocketException e) {
 				e.printStackTrace();
 			} catch (UnknownHostException e) {
@@ -35,6 +28,7 @@ public class HandlerPutCommand extends Handler {
 				e.printStackTrace();
 			}
 			
+			
 		}else{
 			
 			if (successor != null){
@@ -42,6 +36,9 @@ public class HandlerPutCommand extends Handler {
 			}
 			
 		}
+
 	}
+	
+	
 
 }

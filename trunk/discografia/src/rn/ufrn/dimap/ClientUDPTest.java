@@ -6,9 +6,9 @@ import java.net.InetAddress;
 
 public class ClientUDPTest {
 	public static void main(String[] args) {
-		int porta = 1025;
+		int porta = 1090;
         String servidor = "127.0.0.1";
-        String msg = "ECHO:ECHO";
+       
                 
         DatagramSocket s = null;
         
@@ -16,6 +16,8 @@ public class ClientUDPTest {
             s = new DatagramSocket(); /* Cria um socket UDP */
             System.out.println("\n* CLIENTE: Socket criado na porta: " + s.getLocalPort());
             InetAddress serv = InetAddress.getByName(servidor);
+            String msg = String.format("%s:%s:%s:%s","GET","BANDA",servidor,s.getLocalPort());
+            
             byte[] m = msg.getBytes(); /* Transforma msg em bytes */
             DatagramPacket req = new DatagramPacket(m, msg.length(), serv, porta);
             s.send(req); /* Envia datagrama contendo a mensagem m */

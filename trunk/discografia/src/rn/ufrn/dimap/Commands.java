@@ -19,4 +19,6 @@ public enum Commands {
 	WHERE,
 	ECHO,
 	SYNC,
+	DATA,
+	END
 }
