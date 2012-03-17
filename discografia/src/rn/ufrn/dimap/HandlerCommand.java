@@ -8,6 +8,9 @@ public class HandlerCommand{
 	private Handler handlerWhere = null;
 	private Handler handlerEcho = null;
 	private Handler handlerSync = null;
+	private Handler handlerData = null;
+	private Handler handlerEnd = null;
+	
 	private Request request = null;
 	private Commands enumCommand;
 	private String command;
@@ -77,6 +80,9 @@ public class HandlerCommand{
 		handlerWhere = new HandlerWhereCommand();
 		handlerEcho = new HandlerEchoCommand();
 		handlerSync = new HandlerSyncCommand();
+		handlerData = new HandlerDataCommand();
+		handlerEnd = new HandlerEndCommand();
+		
 		
 	}
 	
@@ -96,6 +102,8 @@ public class HandlerCommand{
 		handlerDisco.setSucessor(handlerWhere);
 		handlerWhere.setSucessor(handlerEcho);
 		handlerEcho.setSucessor(handlerSync);
+		handlerSync.setSucessor(handlerData);
+		handlerData.setSucessor(handlerEnd);
 		
 	}
 

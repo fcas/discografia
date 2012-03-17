@@ -23,6 +23,11 @@ public class UDPReceiveMessage {
 	 * Construtor padrao
 	 */
 	public UDPReceiveMessage() {
+		try {
+			socket = new DatagramSocket();
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

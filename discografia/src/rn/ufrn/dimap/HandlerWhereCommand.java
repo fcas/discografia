@@ -1,8 +1,14 @@
 package rn.ufrn.dimap;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
 public class HandlerWhereCommand extends Handler {
 	
 	private ConsoleMessage consoleMsg = null;
+	UDPSendMessage sendMessage = null;
 
 	@Override
 	public void handleRequest(Request request) {
@@ -10,8 +16,21 @@ public class HandlerWhereCommand extends Handler {
 		
 		
 		if (request.getCommand().equals(Commands.WHERE)){
-			consoleMsg.setMessagem("O comando WHERE sera tratado.");
-			consoleMsg.print();
+			
+			String data = request.getArgument();
+	
+			try {
+				sendMessage = new UDPSendMessage(data, InetAddress.getByName("localhost"),1025);
+				sendMessage.sender();
+			} catch (SocketException e) {
+				e.printStackTrace();
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			
 			
 		}else{
 			

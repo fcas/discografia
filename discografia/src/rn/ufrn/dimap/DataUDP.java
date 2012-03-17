@@ -1,6 +1,7 @@
 package rn.ufrn.dimap;
 
 import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.Scanner;
@@ -49,16 +50,34 @@ public final class DataUDP {
 		 * System.out.println("PUT - Enviar discografia\n"); String userMessage
 		 * = scan.nextLine(); lineCatch(userMessage); }
 		 */
-
+		DatagramSocket s=null;
+		
+		try {
+			s = new DatagramSocket(1090);
+		} catch (SocketException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		while (true) {
 
-			receiveMessage = new UDPReceiveMessage();
+			byte[]b = new byte[1024];
+			
+			
+			//receiveMessage = new UDPReceiveMessage();
 			//receiveMessage.setSocket(socket);
-
+			DatagramPacket p;
+			
 			try {
 
-				receiveMessage.receive();
-				contentMessage = receiveMessage.getMessage();
+				
+				p = new DatagramPacket(b, b.length);
+				s.receive(p);
+				
+				//receiveMessage.receive();
+				contentMessage =  new String(p.getData());
+				//contentMessage = receiveMessage.getMessage();
+				
 				lineCatch(contentMessage);
 
 			} catch (IOException e) {
@@ -104,13 +123,13 @@ public final class DataUDP {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Informe um artista");
+		System.out.println("Informe um artista");
 		
 		String artista = sc.nextLine();
 		
 		try {
 			DataUDP client = new DataUDP(artista, 1090);
-			System.out.println("DataUDP inicializado.\n.");
+			System.out.println("DataUDP inicializado.");
 			client.listenIt();
 		} finally {
 
