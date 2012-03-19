@@ -22,7 +22,16 @@ public final class Connection {
 	private int timeOut;
 	private int port;
 	private SystemConfigurations sys = null;
-
+	
+	public Connection() throws SocketException {
+		
+		this.socket = new DatagramSocket();
+		this.sys = new SystemConfigurations();
+		this.timeOut = sys.getTIME_OUT();
+		
+	}
+	
+	
 	// usado para servidores
 	public Connection(int port) throws SocketException {
 
@@ -44,9 +53,7 @@ public final class Connection {
 
 	}
 
-	// usado para clientes e dataProvider procurando um servidor disponivel
-	public Connection(String host, int port, int timeOut)
-			throws UnknownHostException, SocketException {
+	public Connection(String host, int port, int timeOut) throws UnknownHostException, SocketException {
 
 		this.address = InetAddress.getByName(host);
 		this.sys = new SystemConfigurations();
@@ -65,12 +72,9 @@ public final class Connection {
 		packetSend = new DatagramPacket(buffer, buffer.length, address, port);
 		packetReceive = new DatagramPacket(buffer, buffer.length);
 
-		// faz um numero de tentativas determinada na classe
-		// SystemConfigurations
 		for (int i = 1; i <= count; i++) {
 			
-			System.out.print(String.format(
-					"Realizando a %sº tentativa de comunicacao ", i));
+			System.out.print(String.format("%sº tentativa de comunicacao", i));
 
 			try {
 
@@ -86,7 +90,7 @@ public final class Connection {
 				
 				
 			} catch (Exception e) {
-				System.out.println(String.format("[%s]", e.getMessage()));
+				System.out.println(String.format("%s%s%s", "[",e.getMessage(),"]"));
 			}
 
 		}
@@ -101,8 +105,7 @@ public final class Connection {
 		String server = null;
 
 		sys = new SystemConfigurations();
-		String fileName = String.format("%s%s%s", sys.getWorkDiretory(),
-				sys.getFileSeparator(), sys.getCONFIG_FILE());
+		String fileName = String.format("%s%s%s", sys.getWorkDiretory(),sys.getFileSeparator(), sys.getCONFIG_FILE());
 
 		file = loadFile(fileName);
 
@@ -110,21 +113,17 @@ public final class Connection {
 
 			Scanner in = new Scanner(file);
 
-			// procura desesperadamente um servidor que possa atender
 			while (in.hasNext()) {
 
 				String line = in.nextLine();
 				String host = line.split(sys.getDELIMITED_FIELD())[0];
-				int port = Integer
-						.parseInt(line.split(sys.getDELIMITED_FIELD())[1]);
-
-				System.out.println(String.format(
-						"Verificando disponibilidade  de %sº em porta %s",
-						host, port));
+				int port = Integer.parseInt(line.split(sys.getDELIMITED_FIELD())[1]);
+				System.out.println(String.format("verificando servidor %s:%s",host, port));
 				Connection connection = new Connection(host, port);
 
-				if (connection.testConenction(3)) {
+				if (connection.testConenction(10)) {
 					server = line;
+					file.close();
 					break;
 				}
 
@@ -147,17 +146,7 @@ public final class Connection {
 		} catch (FileNotFoundException e) {
 			
 			System.err.println(String.format("%s", e.getMessage()));
-			
-		} finally {
-			
-			if (file != null) {
-				try {
-					file.close();
-				} catch (IOException e) {
-					System.err.println(String.format("%s", e.getMessage()));
-				}
-			}
-		}
+		} 
 
 		return file;
 
