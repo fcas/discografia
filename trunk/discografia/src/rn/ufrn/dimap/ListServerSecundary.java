@@ -14,6 +14,13 @@ public final class ListServerSecundary {
 	/* Nao permite dados repetidos */
 	private Set<String>listSecundaryServer = null;
 	
+	/**
+	 * @return the listSecundaryServer
+	 */
+	public Set<String> getListSecundaryServer() {
+		return listSecundaryServer;
+	}
+
 	public ListServerSecundary() {
 		this.listSecundaryServer = new HashSet<String>();
 	}
