@@ -1,19 +1,18 @@
 package rn.ufrn.dimap;
 
-import javax.swing.JPopupMenu.Separator;
-
 /**
  * Classe usada para obter as configuracoes
  * do sistemas dos componentes da aplicao
  * sera usado na classe Connection
  */
-
 public final class SystemConfigurations {
-	private final int TIME_OUT = 6000;
+	private final int TIME_OUT = 2000;
 	private final int MAX_LENGTH_MESSAGE = 1024;
 	private final String DELIMITED_FIELD = ":";
-	private final int DEFAULT_KEY=20;
-	private final String CONFIG_FILE = "host.txt";
+	private final String DEFAULT_MESSAGE="ECHO";
+	private final int DEFAULT_KEY=3;
+	private final int NUM_CONNECTION_TRY = 15;
+	private final String CONFIG_FILE = "hosts.txt";
 	
 
 	/**
@@ -88,6 +87,13 @@ public final class SystemConfigurations {
 	}
 
 	/**
+	 * @return the dEFAULT_MESSAGE
+	 */
+	public String getDEFAULT_MESSAGE() {
+		return DEFAULT_MESSAGE;
+	}
+
+	/**
 	 * Configura o atual diretorio de trabalho
 	 * do componente
 	 */
@@ -102,6 +108,13 @@ public final class SystemConfigurations {
 	 */
 	public int getMAX_LENGTH_MESSAGE() {
 		return MAX_LENGTH_MESSAGE;
+	}
+
+	/**
+	 * @return the nUMBER_DEFAULT_TRY
+	 */
+	public int getNUMBER_DEFAULT_TRY() {
+		return NUM_CONNECTION_TRY;
 	}
 
 	/** 
