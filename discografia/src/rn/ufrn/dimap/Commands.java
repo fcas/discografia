@@ -20,5 +20,5 @@ public enum Commands {
 	ECHO,
 	SYNC,
 	DATA,
-	END
+	NODATA
 }
