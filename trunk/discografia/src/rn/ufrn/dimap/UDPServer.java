@@ -12,14 +12,18 @@ public final class UDPServer {
 	
 	private int port;
 	private Request request = null;
-	//private UDPReceiveMessage recMenssage = null;
-	//private UDPSendMessage sendMessage = null;
 	private SystemConfigurations sys = null;
 	private Connection connection = null;
 	private HandlerCommand handlerCommand = null;
 	private boolean primary;
 	
 	
+	/**
+	 * Contrutor do componente Servidor
+	 * @param port
+	 * @param primary
+	 * @throws SocketException
+	 */
 	public UDPServer(final int port,final boolean primary) throws SocketException {
 		
 		// abrindo a porta
@@ -38,7 +42,6 @@ public final class UDPServer {
 	public void listenIt() throws SocketException{
 		
 		String message = null;
-				
 		System.out.println(String.format("Servidor iniciado em %s",port));
 		
 		while(true){
@@ -49,20 +52,21 @@ public final class UDPServer {
 			try {
 				
 				recMenssage.receive();
-		
-				// obtendo os dados do remetente
 				String origemHost = recMenssage.getPacket().getAddress().getHostName();
 				int origemPort = recMenssage.getPacket().getPort();
 				message = recMenssage.getTex();
 				
 				if ( message != null){
+				
+					lineCatch(message,String.format(":%s:%s",origemHost,origemPort));
 					
-					lineCatch(message,origemHost,origemPort);
 				}
 				
 				
 			} catch (IOException e) {
+				
 				System.err.println(String.format("%s", e.getCause().getMessage()));
+				
 			}
 					
 		}
@@ -70,17 +74,20 @@ public final class UDPServer {
 	}
 	
 	
-	public void lineCatch(String line,String host,int port){
+	public void lineCatch(String message,String extra){
 		
 		String del = sys.getDELIMITED_FIELD();
 	
 		// procura o delimitador das mensagens
-		if (line.contains(del)){
+		if (message.contains(del)){
 			
-			// quebrando a linha
-			String cmd = line.split(del)[0];
-			String arg = line.split(del)[1];
-			String type = line.split(del)[2];
+			// quebrando as linhas
+			String cmd = message.split(del)[0];
+			String arg = message.split(del)[1];
+			String type = message.split(del)[2];
+			String host = extra.split(del)[0];
+			int port = Integer.parseInt(extra.split(del)[1]);
+			
 			
 			try {
 				// chama o tratador de comandos
@@ -88,19 +95,19 @@ public final class UDPServer {
 				
 			} catch (Exception e) {
 				
-				System.err.println(String.format("%s", e.getCause().getMessage()));
+				System.err.println(String.format("%s", e.getMessage()));
 				
 			}
 			
 			
 		}else{
-			System.err.println(String.format("Comando mal formado %s",line));
+			System.err.println(String.format("Comando mal formado %s",message));
 		}
 		
 	}
 	
 		
-	/**
+	/**59199
 	 * @return the port
 	 */
 	public int getPort() {
