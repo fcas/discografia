@@ -3,163 +3,178 @@ package rn.ufrn.dimap;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 /**
- * O Verificador de conexoes com os servidores 
- * de discrografias, usado para dar um nível
- * de redundancia aos agentes da aplicacao
+ * Cria e testar conexoes entre os diferentes agentes
  */
-
 public final class Connection {
 
-	private String fileName = null;
-	private InputStream isFile = null;
-	private Scanner in = null;
 	private DatagramSocket socket = null;
-	private DatagramPacket sender = null;
-	private DatagramPacket receiver = null;
-	private String agent;
+	private DatagramPacket packetSend = null;
+	private DatagramPacket packetReceive = null;
 	private InetAddress address = null;
+	private int timeOut;
+	private int port;
+	private SystemConfigurations sys = null;
 
-	private int timeOut = 1000;
-	private SystemConfigurations sysConfig = null;
-	
-	
-	/**
-	 * Constroi um objeto de teste de conexao
-	 *  
-	 * @param fileName arquivos contendo ip e portas do servidores
-	 * principais
-	 * 
-	 * @param agent o nome do componente da aplicacao 
-	 */
-	
-	public Connection(String fileName, String agent) {
-		sysConfig = new SystemConfigurations();
-		
-		this.fileName = String.format("%s%s",sysConfig.getWorkDiretory(),
-				sysConfig.getFileSeparator(),fileName);
-		
-		this.agent = agent;
-		
-		loadFile();
-		checkServer();
-	}
-	
-	/**
-	 * Obtem o time de espera do socket
-	 * @return timeOut o tempo  de espera do socket
-	 */
-	
-	public int getTimeOut() {
-		return timeOut;
+	// usado para servidores
+	public Connection(int port) throws SocketException {
+
+		// abrindo a porta
+		this.socket = new DatagramSocket(port);
+		this.port = port;
+
 	}
 
-	/**
-	 * @param timeOut the timeOut to set
-	 */
-	
-	public void setTimeOut(int timeOut) {
-		this.timeOut = timeOut;
+	// Uso do cliente e dataProvider se comunicarem
+	public Connection(String host, int port) throws IOException {
+
+		this.sys = new SystemConfigurations();
+		this.socket = new DatagramSocket();
+		this.address = InetAddress.getByName(host);
+		this.port = port;
+		this.timeOut = sys.getTIME_OUT();
+		this.socket.setSoTimeout(this.timeOut);
+
 	}
-	
-	/**
-	 * Carrega o arquivo de ips de servidores
-	 * de discografias
-	 */
-	
-	private void loadFile(){
-		
-		try {
-			isFile = new FileInputStream(String.format("%s",fileName));
-		} catch (FileNotFoundException e) {
-			// cria o objeto ConsoleMessage para imprimir o erro
-			new ConsoleMessage(agent, e.getMessage());
+
+	// usado para clientes e dataProvider procurando um servidor disponivel
+	public Connection(String host, int port, int timeOut)
+			throws UnknownHostException, SocketException {
+
+		this.address = InetAddress.getByName(host);
+		this.sys = new SystemConfigurations();
+		this.socket = new DatagramSocket();
+		this.port = port;
+		this.socket.setSoTimeout(timeOut);
+
+	}
+
+	public boolean testConenction(int count) throws IOException {
+
+		byte[] buffer = sys.getDEFAULT_MESSAGE().getBytes();
+		boolean successfull = false;
+		String echo = null;
+
+		packetSend = new DatagramPacket(buffer, buffer.length, address, port);
+		packetReceive = new DatagramPacket(buffer, buffer.length);
+
+		// faz um numero de tentativas determinada na classe
+		// SystemConfigurations
+		for (int i = 1; i <= count; i++) {
+			
+			System.out.print(String.format(
+					"Realizando a %sº tentativa de comunicacao ", i));
+
+			try {
+
+				socket.send(packetSend);
+				socket.receive(packetReceive);
+				
+				echo = new String(packetReceive.getData());
+				 
+				if (echo.equalsIgnoreCase(sys.getDEFAULT_MESSAGE())) {
+					successfull = true;
+					break;
+				}
+				
+				
+			} catch (Exception e) {
+				System.out.println(String.format("[%s]", e.getMessage()));
+			}
+
 		}
-		
+
+		return successfull;
+
 	}
-	
+
+	public String testServers() throws IOException {
+
+		FileInputStream file = null;
+		String server = null;
+
+		sys = new SystemConfigurations();
+		String fileName = String.format("%s%s%s", sys.getWorkDiretory(),
+				sys.getFileSeparator(), sys.getCONFIG_FILE());
+
+		file = loadFile(fileName);
+
+		if (file != null) {
+
+			Scanner in = new Scanner(file);
+
+			// procura desesperadamente um servidor que possa atender
+			while (in.hasNext()) {
+
+				String line = in.nextLine();
+				String host = line.split(sys.getDELIMITED_FIELD())[0];
+				int port = Integer
+						.parseInt(line.split(sys.getDELIMITED_FIELD())[1]);
+
+				System.out.println(String.format(
+						"Verificando disponibilidade  de %sº em porta %s",
+						host, port));
+				Connection connection = new Connection(host, port);
+
+				if (connection.testConenction(3)) {
+					server = line;
+					break;
+				}
+
+			}
+
+		}
+
+		return server;
+
+	}
+
+	private FileInputStream loadFile(String fileName) {
+
+		FileInputStream file = null;
+
+		try {
+			
+			file = new FileInputStream(String.format("%s", fileName));
+			
+		} catch (FileNotFoundException e) {
+			
+			System.err.println(String.format("%s", e.getMessage()));
+			
+		} finally {
+			
+			if (file != null) {
+				try {
+					file.close();
+				} catch (IOException e) {
+					System.err.println(String.format("%s", e.getMessage()));
+				}
+			}
+		}
+
+		return file;
+
+	}
+
 	/**
-	 * Tenta executar um teste de disponibilidade de servico
-	 * para um componete da aplicacao
-	 * @return address o endereco de algum sevidor disponivel
+	 * @return the socket
 	 */
-	
+	public DatagramSocket getSocket() {
+		return socket;
+	}
+
+	/**
+	 * @return the address
+	 */
 	public InetAddress getAddress() {
 		return address;
 	}
-	
-	private void checkServer(){
-		
-			if (this.isFile != null){
-			
-			try {
-				
-				this.in = new Scanner(this.isFile);
-				while(in.hasNext()){
-					
-					String line = in.nextLine();
-					String host = line.split(":")[0];				
-					int port = Integer.parseInt(line.split(":")[1]);
-					
-					new ConsoleMessage(agent,
-							String.format("tentando disponibilidade em %s:%s",
-									host,port));
-					address = getConnection(host, port);
-					
-					if (address != null)
-						break;
-					
-				}	
-				
-			} catch (Exception ex) {
-				/* Cria o objeto ConsoleMessage para imprimir o erro */
-				new ConsoleMessage(agent, ex.getMessage());
-			} finally{
-				
-				if (isFile != null){
-					try {
-						isFile.close();
-					} catch (IOException e) {
-						new ConsoleMessage(agent, e.getMessage());
-					}
-				}
-			}	
-		}	
-	}
-	
-	public InetAddress getConnection(String host, int port){
-		String message = "echo";
-		byte[] buffer = message.getBytes();
-		InetAddress address = null;
-		
-		try {
-			
-			socket = new DatagramSocket();
-			socket.setSoTimeout(timeOut);
 
-			sender = new DatagramPacket(buffer,buffer.length,
-					InetAddress.getByName(host),port);
-			socket.send(sender);
-			
-			receiver = new DatagramPacket(buffer, buffer.length);
-			socket.receive(receiver);
-			
-			String retorn = new String(receiver.getData());
-			
-			if (retorn.equals(message))
-				address = socket.getInetAddress();
-			
-		} catch (Exception e) {
-			new ConsoleMessage(agent, e.getMessage());
-		}
-		
-		return address;
-	}
-	
 }
