@@ -10,59 +10,76 @@ public final class Encriptor {
 
 	private int key;
 	private byte[] arrayByteOriginal;
-	private byte[] arrayByteEncripted;
+	private byte[] arrayByteModificate;
 	
 	/**
 	 * Constroi um encriptador 
 	 * @param key a chave de criptografia
-	 * @param text o texto a ser criptografado
-	 */	
-	
-	public Encriptor(int key,String text) {
-		super();
-		this.key=key;
-		this.arrayByteOriginal = text.getBytes();
+	 * @param content o texto a ser criptografado
+	 */		
+	public Encriptor(int key,byte[] content) {
 		
+		this.key=key;
+		this.arrayByteOriginal = content;
+					
 	}
 
+	/**
+	 * Faz a criptografia do dado
+	 * 
+	 */
+	public void doEncription(){
+		
+		int length = arrayByteOriginal.length;
+		arrayByteModificate = new byte[length];
+				
+		for (int i = 0; i < length; i++) {
+			
+			if (arrayByteOriginal[i] !=0 ){
+				arrayByteModificate[i] = encrypt(arrayByteOriginal[i]);
+			}
+			
+		}
+
+	}
+	
 	/**
 	 * Criptografa o texto
 	 * @return result o texto criptografado
 	 */
+	public byte[] getEncripted(){
+		return arrayByteModificate.clone();
+	}
 	
-	public String getEncriptedString(){
-		int len = arrayByteOriginal.length;
-		arrayByteEncripted = new byte[len];
-		String result;
 		
-		for (int i = 0; i < len; i++) {
-			arrayByteEncripted[i] = encrypt(arrayByteOriginal[i]);
+	/**
+	 * Realiza a descriptografa o texto
+	 * @return result o texto descriptografado
+	 */
+	public byte[] doDecrypted(){
+		
+		int length = arrayByteOriginal.length;
+		arrayByteModificate = new byte[length];
+			
+		for (int i = 0; i < length; i++) {
+			
+			if(arrayByteOriginal[i] != 0){
+				arrayByteModificate[i] = decrypt(arrayByteOriginal[i]);
+			}
+			
 		}
 		
-		result = new String(arrayByteEncripted);
-		
-		return result;
+		return arrayByteModificate.clone();
 		
 	}
 	
-	/**
-	 * Descriptografa o texto
-	 * @return result o texto descriptografado
-	 */
 	
-	public String getDecryptedString(){
-		int len = arrayByteEncripted.length;
-		byte[] arrayResult = new byte[len];
-		String result;
-		
-		for (int i = 0; i < len; i++) {
-			arrayResult[i] = decrypt(arrayByteEncripted[i]);
-		}
-		
-		result = new String(arrayResult);
-		
-		return result;
-		
+	/**
+	 * Retorna o texto descriptografado
+	 * @return o array de bytes
+	 */
+	public byte[] getDecrypted(){
+		return arrayByteModificate.clone();
 	}
 	
 	/**
@@ -70,7 +87,6 @@ public final class Encriptor {
 	 * @param letter o byte a ser criptografado
 	 * @return o byte criptografado
 	 */
-	
 	public byte encrypt(byte letter){
 		return (byte)(letter + this.key);
 	}
@@ -80,8 +96,8 @@ public final class Encriptor {
 	 * @param letter o byte a ser descriptografado
 	 * @return o byte descriptografado
 	 */
-	
 	public byte decrypt(byte letter){
 		return (byte)(letter - this.key);
 	}
+	
 }
