@@ -38,7 +38,7 @@ public class UDPReceiveMessage {
 		
 	}
 	
-	public synchronized String getTex(){
+	public String getTex(){
 		return text;
 	}
 	
@@ -54,7 +54,7 @@ public class UDPReceiveMessage {
 	/**
 	 * @param socket the socket to set
 	 */
-	public void setSocket(DatagramSocket socket) {
+	public synchronized void setSocket(final DatagramSocket socket) {
 		this.socket = socket;
 	}
 
@@ -62,7 +62,7 @@ public class UDPReceiveMessage {
 	/**
 	 * @return the socket
 	 */
-	public DatagramSocket getSocket() {
+	public synchronized DatagramSocket getSocket() {
 		return socket;
 	}
 	
