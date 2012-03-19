@@ -1,7 +1,6 @@
 package rn.ufrn.dimap;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
 import java.net.SocketException;
 
 
@@ -13,27 +12,21 @@ public final class UDPServer {
 	
 	private int port;
 	private Request request = null;
-	private UDPReceiveMessage receiveMessage = null;
-	private SystemConfigurations sysConfig = null;
-	private DatagramSocket socket = null;
-	private HandlerCommand handlerCommand=null;
-	private ConsoleMessage consoleMessage = null;
+	//private UDPReceiveMessage recMenssage = null;
+	//private UDPSendMessage sendMessage = null;
+	private SystemConfigurations sys = null;
+	private Connection connection = null;
+	private HandlerCommand handlerCommand = null;
+	private boolean primary;
 	
 	
-	/**
-	 * Constroi o componente servidor
-	 * @param port a porta de escuta
-	 * @param primary e modo: primary e secundary
-	 * @throws SocketException 
-	 */
-	public UDPServer(int port, boolean primary) throws SocketException {
+	public UDPServer(final int port,final boolean primary) throws SocketException {
 		
+		// abrindo a porta
+		this.connection = new Connection(port);
+		this.sys = new SystemConfigurations(); 
+		this.primary = primary;
 		this.port = port;
-		this.sysConfig = new SystemConfigurations(); 
-		this.socket = new DatagramSocket(port);
-		consoleMessage = new ConsoleMessage("Servidor", 
-				String.format("iniciado na porta %s",port));
-		consoleMessage.print();
 		
 	}
 
@@ -44,58 +37,69 @@ public final class UDPServer {
 	 */
 	public void listenIt() throws SocketException{
 		
-		String contentMessage = null;
+		String message = null;
 				
+		System.out.println(String.format("Servidor iniciado em %s",port));
+		
 		while(true){
 			
-			receiveMessage = new UDPReceiveMessage(port);
-			receiveMessage.setSocket(socket);	
+			UDPReceiveMessage recMenssage = new UDPReceiveMessage();
+			recMenssage.setSocket(connection.getSocket());
 			
 			try {
 				
-				receiveMessage.receive();
-				contentMessage = receiveMessage.getMessage();
-				lineCatch(contentMessage);
+				recMenssage.receive();
+		
+				// obtendo os dados do remetente
+				String origemHost = recMenssage.getPacket().getAddress().getHostName();
+				int origemPort = recMenssage.getPacket().getPort();
+				message = recMenssage.getTex();
+				
+				if ( message != null){
+					
+					lineCatch(message,origemHost,origemPort);
+				}
+				
 				
 			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (Exception e){
-				e.printStackTrace();
+				System.err.println(String.format("%s", e.getCause().getMessage()));
 			}
-				
+					
 		}
-		
+			
 	}
 	
 	
-	public void lineCatch(String linha){
+	public void lineCatch(String line,String host,int port){
 		
-		String del = sysConfig.getDELIMITED_FIELD();
-		consoleMessage.setMessagem("Comando mal formado.");
-		
+		String del = sys.getDELIMITED_FIELD();
+	
 		// procura o delimitador das mensagens
-		if (linha.contains(del)){
+		if (line.contains(del)){
 			
-			// obtendo os campos comando e argumento
-			String cmd = linha.split(del)[0];
-			String arg = linha.split(del)[1];
+			// quebrando a linha
+			String cmd = line.split(del)[0];
+			String arg = line.split(del)[1];
+			String type = line.split(del)[2];
 			
 			try {
-				handlerCommand = new HandlerCommand(cmd, arg);
+				// chama o tratador de comandos
+				handlerCommand = new HandlerCommand(cmd, arg,type, host, port);
+				
 			} catch (Exception e) {
-				consoleMessage.print();
+				
+				System.err.println(String.format("%s", e.getCause().getMessage()));
+				
 			}
 			
 			
 		}else{
-			consoleMessage.print();
+			System.err.println(String.format("Comando mal formado %s",line));
 		}
 		
 	}
 	
-	
-
-	
+		
 	/**
 	 * @return the port
 	 */
@@ -140,19 +144,25 @@ public final class UDPServer {
 		this.handlerCommand = handlerCommand;
 	}
 
+	
+	/**
+	 * @return the primary
+	 */
+	public boolean isPrimary() {
+		return primary;
+	}
 
+
+	/**
+	 * @param primary the primary to set
+	 */
+	public void setPrimary(boolean primary) {
+		this.primary = primary;
+	}
+
+	
 	public static void main(String[] args) {
 		
-		/*
-		if (args.length<1){
-			System.err.printf("Usage: %s %s %s\n",UDPServer.class.getName(),
-					"port","mode");
-			System.exit(1);
-		}
-		
-		int port = Integer.parseInt(args[0]);	// a parta de escuta
-		boolean mode = Boolean.parseBoolean(args[1]);	// o modo do componente
-*/		
 		try {
 			
 			UDPServer servidor = new UDPServer(1025, true);
@@ -164,6 +174,5 @@ public final class UDPServer {
 		
 		
 	}
-	
 	
 }
